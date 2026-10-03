@@ -5,6 +5,21 @@
 
 ---
 
+## 🔑 Contraseña Maestra de Acceso a los Dashboards de Vercel
+
+Los estudios operativos externos de Polyglot Map alojados en Vercel están protegidos con la **clave oficial de acceso**:
+
+```
+PM2026q4
+```
+
+- **Plataformas protegidas con esta clave:**
+  - 🎨 **Creative Marketing Studio (Content Creators):** `https://team-content-creator.vercel.app/`
+  - 🌐 **Global Translators Studio & Hub ✨ (Traductores):** `https://studio-global-translators.vercel.app/`
+- **Widget Flotante de 1 Clic:** En el portal principal cuentas con un botón flotante y un chip en la barra superior para copiar la clave al portapapeles al instante con sonido de confirmación y confeti pastel.
+
+---
+
 ## 🎨 Paleta de Estilo y Colores Pasteles Ejecutivos
 
 El diseño está desarrollado con una paleta de colores pasteles armoniosa, sofisticada y amigable:
@@ -14,14 +29,12 @@ El diseño está desarrollado con una paleta de colores pasteles armoniosa, sofi
 - **Melocotón / Durazno Pastel (`#FED7AA` / `#FFEDD5`):** Área de **Comunicaciones & Creación de Contenido**.
 - **Azul Cielo Pastel (`#BAE6FD` / `#E0F2FE`):** Área de **Traductores & Especialistas en Localización con IA**.
 - **Rosa Pastel / Blush (`#FBCFE8` / `#FCE7F3`):** Reseñas de estudiantes, satisfacción y Espacio Cultural.
-- **Amarillo Manteca Pastel (`#FEF08A` / `#FEF9C3`):** Insignias destacadas de **Personas a Cargo** y logros de liderazgo.
+- **Amarillo Manteca Pastel (`#FEF08A` / `#FEF9C3`):** Insignias destacadas de **Personas a Cargo** y roles de liderazgo.
 - **Lienzo / Fondo Suave (`#FAF9FE`):** Gradientes tenues y tarjetas translúcidas con efecto *glassmorphism*.
 
 ---
 
 ## 👥 Equipo y Categorías del Staff
-
-El directorio incluye perfiles interactivos de los departamentos clave:
 
 ### 1. 🎓 Docentes de Idiomas en Vivo
 - **Prof. Jhonatan Vega (Perú 🇵🇪):** Docente Senior de Idiomas & Fonética en Vivo (*35 personas a cargo: estudiantes en vivo y asistentes de cátedra*).
@@ -29,14 +42,16 @@ El directorio incluye perfiles interactivos de los departamentos clave:
 - **Matteo Rossi (Italia 🇮🇹):** Docente de Italiano & Fonética Melódica (*18 personas a cargo*).
 - **Elena Bauer (Alemania 🇩🇪):** Docente de Alemán & Traductora Técnica (*14 personas a cargo*).
 
-### 2. 📣 Comunicaciones & Contenido Viral
+### 2. 📣 Comunicaciones & Contenido Viral (Dashboard en Vercel)
+> **Dashboard Oficial:** [`https://team-content-creator.vercel.app/`](https://team-content-creator.vercel.app/) *(Acceso: `PM2026q4`)*
 - **Adriana Chávez (Perú 🇵🇪):** Coordinadora Creativa Lead & Producción de Contenidos (*4 personas a cargo: Scarlet, Daniela, Alison, Britani*).
 - **Scarlet Rodríguez (España 🇪🇸):** Video Producer, Copywriter & Identidad Visual Cyber-Futurista (*2 personas a cargo*).
 - **Daniela Navarro (Costa Rica 🇨🇷):** Content Creator frente a cámara & Content Analytic en Ventas (*1 persona a cargo*).
 - **Alison Páucar (Perú 🇵🇪):** Content Strategist & Alianzas B2B en IA (*Especialista estratégica*).
 - **Britani Quispe (Perú 🇵🇪):** Community Engagement & WhatsApp Lead (*Especialista en fidelización*).
 
-### 3. 🌐 Traductores & Localización con IA
+### 3. 🌐 Traductores & Localización con IA (Dashboard en Vercel)
+> **Dashboard Oficial:** [`https://studio-global-translators.vercel.app/`](https://studio-global-translators.vercel.app/) *(Acceso: `PM2026q4`)*
 - **Lucas Silva (Brasil 🇧🇷):** Lead Translator & Prompt Engineer en Localización (*3 personas a cargo*).
 - **Sofía Valenzuela (Perú 🇵🇪):** Traductora Jurídica & Especialista en Subtitulaje con IA Whisper (*2 personas a cargo*).
 - **Marco Bellini (Italia / Perú 🇮🇹🇵🇪):** Traductor Técnico & Post-Edición Neuronal con IA.
@@ -72,15 +87,6 @@ Cada integrante cuenta con un enlace permanente único en la URL:
 - `#staff=diego-morales`
 - ...y todos los demás integrantes.
 
-### Contenido del Dashboard Individual:
-- **Cabecera con avatar, bandera del país, departamento y puntuación NPS.**
-- **Panel Especial "Personas a Cargo":** Conteo destacado y lista visual interactiva en minitarjetas de los colaboradores, practicantes o cohortes bajo su supervisión directa.
-- **Gráfica de Dominio Lingüístico:** Niveles del marco CEFR (A1 a C2) y barras de progreso porcentual.
-- **Stack de IA:** Herramientas y caso de uso específico en Polyglot Map.
-- **Métricas Bento:** Horas dictadas, piezas producidas, automatizaciones o alumnos colocados en el extranjero.
-- **Disponibilidad Semanal:** Horarios y turnos disponibles para clases, dailies o mentorías.
-- **Acciones Rápidas:** Botón directo a WhatsApp con mensaje personalizado, enlace a Google Meet y botón para copiar enlace con animación de confeti pastel.
-
 ---
 
 ## 💻 Cómo Abrir y Usar Localmente
@@ -95,6 +101,6 @@ O iniciar un servidor local rápido:
 
 ```bash
 cd /Users/melaniealmeyda/.gemini/antigravity/scratch/polyglot-staff-dashboard
-python3 -m http.server 8080
+python3 -m http.server 8085
 ```
-Y abrir en el navegador: `http://localhost:8080`
+Y abrir en el navegador: `http://localhost:8085`
