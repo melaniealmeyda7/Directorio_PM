@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POLYGLOT MAP · Staff & Talent Intelligence Dashboard</title>
+  <meta name="description" content="Portal interactivo del staff de Polyglot Map: Docentes, Comunicaciones, Traductores y Mentores de IA. Gráficas de personas a cargo, directorio dinámico y dashboards individuales.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              purple: '#8B5CF6',
+              lavender: '#C4B5FD',
+              softLilac: '#EDE9FE',
+              mint: '#10B981',
+              softMint: '#D1FAE5',
+              peach: '#FB923C',
+              softPeach: '#FFEDD5',
+              sky: '#38BDF8',
+              softSky: '#E0F2FE',
+              rose: '#F472B6',
+              softRose: '#FCE7F3',
+              butter: '#FACC15',
+              softButter: '#FEF9C3',
+              canvas: '#FAF9FE'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF9FE;
+      color: #1E293B;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Soft Pastel Glassmorphism */
+    .pastel-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pastel-card:hover {
+      box-shadow: 0 18px 35px -5px rgba(139, 92, 246, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+      transform: translateY(-3px);
+      border-color: rgba(196, 181, 253, 0.8);
+    }
+
+    .pastel-pill-active {
+      background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+    }
+
+    /* Gradient Backgrounds */
+    .bg-pastel-gradient {
+      background: linear-gradient(135deg, #F5F3FF 0%, #EFF6FF 50%, #FDF2F8 100%);
+    }
+
+    .text-gradient-pastel {
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-purple-200 selection:text-purple-900">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <aside class="bg-gradient-to-r from-purple-100 via-pink-100 to-amber-100 border-b border-purple-200/60 text-slate-800 text-xs sm:text-sm py-2 px-4 shadow-xs">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500 text-white text-[11px] font-bold">✨</span>
+        <span class="font-semibold text-slate-700">
+          <strong>POLYGLOT MAP · Staff & Talent Portal</strong>: Gestión de Docentes, Comunicaciones, Traductores y Mentores de IA.
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/80 border border-purple-200 text-purple-700 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          14 Colaboradores Activos
+        </span>
+        <a href="#directorio" class="text-xs font-bold text-purple-700 hover:text-purple-900 transition-colors flex items-center gap-1">
+          <span>Explorar Directorio</span>
+          <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/70 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" onclick="showDirectoryView(); return false;" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 p-0.5 shadow-md shadow-purple-100 group-hover:scale-105 transition-all">
+          <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center text-xl shadow-xs">
+            ✈️
+          </div>
+        </div>
+        <div>
+          <div class="font-extrabold text-xl tracking-tight text-slate-900 flex items-center gap-1.5 font-display">
+            POLYGLOT <span class="text-gradient-pastel">MAP</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold uppercase tracking-wider">Staff OS</span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium hidden sm:block">Idiomas en Vivo • Inteligencia Artificial • Empleabilidad Global</p>
+        </div>
+      </a>
+
+      <!-- Quick Nav Links -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/60 text-xs font-semibold">
+        <button onclick="showDirectoryView()" id="navBtnDirectory" class="px-4 py-2 rounded-xl text-purple-700 bg-white shadow-xs font-bold transition-all">
+          Directorio del Staff
+        </button>
+        <a href="#analitica-personal" class="px-4 py-2 rounded-xl text-slate-600 hover:text-purple-700 hover:bg-white/60 transition-all">
+          Gráficas de Equipo
+        </a>
+        <a href="#organigrama-section" class="px-4 py-2 rounded-xl text-slate-600 hover:text-purple-700 hover:bg-white/60 transition-all">
+          Estructura & Jerarquía
+        </a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-pink-100/90 text-pink-800 border border-pink-200 hover:bg-pink-200 transition-all font-bold text-xs shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+          <span>Dashboard Content Creator ↗</span>
+        </a>
+        <a href="https://wa.me/51908934514?text=%C2%A1Hola!%20Vengo%20del%20portal%20del%20Staff%20de%20Polyglot%20Map" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-100/90 text-emerald-800 border border-emerald-200 hover:bg-emerald-200 transition-all font-semibold text-xs shadow-xs">
+          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+          <span>WhatsApp Soporte</span>
+        </a>
+        <button onclick="copyDirectLink(window.location.href, 'Enlace del Portal')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition-all shadow-md shadow-purple-200">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Compartir Portal</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER (SWAPS BETWEEN DIRECTORY VIEW & INDIVIDUAL DASHBOARD) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: DIRECTORY & LANDING DASHBOARD VIEW -->
+    <!-- ========================================== -->
+    <div id="directoryViewContainer" class="space-y-10">
+
+      <!-- HERO BANNER PASTEL -->
+      <section class="relative overflow-hidden rounded-3xl p-6 sm:p-10 bg-pastel-gradient border border-purple-200/50 shadow-sm">
+        <!-- Floating Pastel Shapes -->
+        <div class="absolute -top-12 -right-12 w-64 h-64 bg-pink-200/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-purple-200/40 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-purple-200 text-purple-800 text-xs font-bold mb-4 shadow-2xs">
+            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+            Ecosistema de Talento Polyglot Map
+          </div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 font-display">
+            Directorio y Dashboards del <span class="text-gradient-pastel">Staff de Trabajo</span>
+          </h1>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6 font-medium">
+            Conoce a nuestros <strong>Docentes de Idiomas en Vivo</strong>, equipo de <strong>Comunicaciones & Medios</strong>, <strong>Traductores Especialistas</strong> y <strong>Mentores de IA y Empleabilidad Global</strong>. Haz clic en cualquier colaborador para explorar su <strong>dashboard individual</strong> con métricas, personas a su cargo y disponibilidad.
+          </p>
+
+          <!-- Top Quick Filters Pills -->
+          <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <span class="text-slate-500 font-semibold mr-1">Áreas Clave:</span>
+            <button onclick="setFilterCategory('docentes')" class="px-3 py-1.5 rounded-xl bg-emerald-100/80 text-emerald-800 font-bold border border-emerald-200 hover:bg-emerald-200 transition-all flex items-center gap-1.5">
+              <span>🎓 Docentes en Vivo</span>
+              <span class="w-4 h-4 rounded-full bg-emerald-200 text-emerald-900 text-[10px] flex items-center justify-center font-bold">5</span>
+            </button>
+            <button onclick="setFilterCategory('comunicaciones')" class="px-3 py-1.5 rounded-xl bg-pink-100/80 text-pink-800 font-bold border border-pink-200 hover:bg-pink-200 transition-all flex items-center gap-1.5">
+              <span>📣 Comunicaciones & Contenido</span>
+              <span class="w-4 h-4 rounded-full bg-pink-200 text-pink-900 text-[10px] flex items-center justify-center font-bold">5</span>
+            </button>
+            <button onclick="setFilterCategory('traductores')" class="px-3 py-1.5 rounded-xl bg-sky-100/80 text-sky-800 font-bold border border-sky-200 hover:bg-sky-200 transition-all flex items-center gap-1.5">
+              <span>🌐 Traductores & Localización</span>
+              <span class="w-4 h-4 rounded-full bg-sky-200 text-sky-900 text-[10px] flex items-center justify-center font-bold">3</span>
+            </button>
+            <button onclick="setFilterCategory('empleabilidad')" class="px-3 py-1.5 rounded-xl bg-purple-100/80 text-purple-800 font-bold border border-purple-200 hover:bg-purple-200 transition-all flex items-center gap-1.5">
+              <span>🚀 Empleabilidad & Liderazgo IA</span>
+              <span class="w-4 h-4 rounded-full bg-purple-200 text-purple-900 text-[10px] flex items-center justify-center font-bold">2</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: DASHBOARDS OFICIALES POR EQUIPO / HUBS OPERATIVOS -->
+      <section id="equipo-dashboards" class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900 font-display flex items-center gap-2">
+              <span class="w-2.5 h-6 rounded-full bg-pink-500 inline-block"></span>
+              Dashboards Oficiales por Equipo / Hubs Operativos
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500">
+              Acceso directo al centro de comando de cada equipo de trabajo en Polyglot Map.
+            </p>
+          </div>
+          <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 border border-pink-200 px-3.5 py-1.5 rounded-xl inline-flex items-center gap-1.5 self-start transition-all">
+            <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+            <span>Content Creator Hub: team-content-creator.vercel.app ↗</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- Team 1: Content Creator & Comunicaciones (Vercel) -->
+          <div class="pastel-card rounded-3xl p-5 bg-gradient-to-br from-pink-50/90 via-white to-pink-50/40 border-2 border-pink-300 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:border-pink-400">
+            <div class="absolute -top-6 -right-6 w-24 h-24 bg-pink-200/50 rounded-full blur-xl pointer-events-none"></div>
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-pink-200 text-pink-900 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-pink-600 animate-pulse"></span>
+                  <span>En Vivo en Vercel</span>
+                </span>
+                <span class="text-xs font-bold text-slate-400">5 Creadoras</span>
+              </div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center font-bold text-lg shrink-0">
+                  🎨
+                </div>
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900 group-hover:text-pink-700 transition-colors">
+                    Content Creators & Comunicaciones
+                  </h3>
+                  <div class="text-[11px] text-pink-700 font-semibold">Creative Marketing Studio</div>
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 mt-2 mb-3 leading-relaxed">
+                Matriz Excel en vivo, asignación de piezas, pautas para 4 videos semanales (9:16), carpetas Drive y sala Meet 24/7.
+              </p>
+              <div class="text-[10px] text-slate-500 font-medium mb-4 flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-pink-200 text-pink-800 font-semibold">Adriana (Lead)</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-pink-200 text-pink-800 font-semibold">Scarlet</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-pink-200 text-pink-800 font-semibold">Daniela</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-pink-200 text-pink-800 font-semibold">Alison</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-pink-200 text-pink-800 font-semibold">Britani</span>
+              </div>
+            </div>
+            <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-2 shadow-sm shadow-pink-200">
+              <span>Abrir Dashboard Content Creator</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Team 2: Docentes de Idiomas -->
+          <div class="pastel-card rounded-3xl p-5 bg-gradient-to-br from-emerald-50/90 via-white to-emerald-50/40 border border-emerald-200 shadow-sm flex flex-col justify-between group hover:border-emerald-300">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span>4 Idiomas en Vivo</span>
+                </span>
+                <span class="text-xs font-bold text-slate-400">5 Docentes</span>
+              </div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg shrink-0">
+                  🎓
+                </div>
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900 group-hover:text-emerald-700 transition-colors">
+                    Docentes de Idiomas en Vivo
+                  </h3>
+                  <div class="text-[11px] text-emerald-700 font-semibold">Language Faculty Studio</div>
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 mt-2 mb-3 leading-relaxed">
+                Inglés, Francés, Portugués, Italiano y Alemán con Shadowing con IA, Espacio Cultural y fonética en vivo.
+              </p>
+              <div class="text-[10px] text-slate-500 font-medium mb-4 flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-emerald-800 font-semibold">Prof. Jhonatan</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-emerald-800 font-semibold">Camila</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-emerald-800 font-semibold">Matteo</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-emerald-800 font-semibold">Elena</span>
+              </div>
+            </div>
+            <button onclick="setFilterCategory('docentes'); document.getElementById('directorio').scrollIntoView({behavior:'smooth'});" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-2 shadow-sm shadow-emerald-200">
+              <span>Ver Dashboard de Docentes (5)</span>
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Team 3: Traductores & Localización -->
+          <div class="pastel-card rounded-3xl p-5 bg-gradient-to-br from-sky-50/90 via-white to-sky-50/40 border border-sky-200 shadow-sm flex flex-col justify-between group hover:border-sky-300">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-sky-100 text-sky-800 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+                  <span>Localización con IA</span>
+                </span>
+                <span class="text-xs font-bold text-slate-400">3 Lingüistas</span>
+              </div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-lg shrink-0">
+                  🌐
+                </div>
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900 group-hover:text-sky-700 transition-colors">
+                    Traductores & Localización IA
+                  </h3>
+                  <div class="text-[11px] text-sky-700 font-semibold">Translation & CAT Lab</div>
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 mt-2 mb-3 leading-relaxed">
+                Post-edición con DeepL Pro API, subtitulaje sincronizado con Whisper Large-v3 y traducción técnica.
+              </p>
+              <div class="text-[10px] text-slate-500 font-medium mb-4 flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Lucas Silva</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Sofía</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Marco</span>
+              </div>
+            </div>
+            <button onclick="setFilterCategory('traductores'); document.getElementById('directorio').scrollIntoView({behavior:'smooth'});" class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-2 shadow-sm shadow-sky-200">
+              <span>Ver Dashboard Traductores (3)</span>
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Team 4: Empleabilidad & Liderazgo IA -->
+          <div class="pastel-card rounded-3xl p-5 bg-gradient-to-br from-purple-50/90 via-white to-purple-50/40 border border-purple-200 shadow-sm flex flex-col justify-between group hover:border-purple-300">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-purple-100 text-purple-800 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                  <span>Job Coaching Global</span>
+                </span>
+                <span class="text-xs font-bold text-slate-400">2 Mentores</span>
+              </div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg shrink-0">
+                  🚀
+                </div>
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900 group-hover:text-purple-700 transition-colors">
+                    Empleabilidad & Liderazgo IA
+                  </h3>
+                  <div class="text-[11px] text-purple-700 font-semibold">Executive Career Hub</div>
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 mt-2 mb-3 leading-relaxed">
+                Optimización ATS, perfil LinkedIn de alto impacto, automatización de postulaciones y roleplays con IA.
+              </p>
+              <div class="text-[10px] text-slate-500 font-medium mb-4 flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-purple-200 text-purple-800 font-semibold">Melanie (CEO)</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-purple-200 text-purple-800 font-semibold">Diego Morales</span>
+              </div>
+            </div>
+            <button onclick="setFilterCategory('empleabilidad'); document.getElementById('directorio').scrollIntoView({behavior:'smooth'});" class="w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-2 shadow-sm shadow-purple-200">
+              <span>Ver Dashboard Empleabilidad (2)</span>
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- KPI EXECUTIVE METRICS -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1 -->
+        <div class="pastel-card rounded-2xl p-5 border-l-4 border-l-purple-400 bg-white">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Staff Registrado</span>
+            <div class="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display">14 Integrantes</div>
+          <div class="text-xs text-purple-700 font-semibold flex items-center gap-1">
+            <span>4 Áreas estratégicas activas</span>
+          </div>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="pastel-card rounded-2xl p-5 border-l-4 border-l-amber-400 bg-white">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Personas a Cargo</span>
+            <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+              <i data-lucide="git-branch" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display">169 Personas</div>
+          <div class="text-xs text-amber-700 font-semibold flex items-center gap-1">
+            <span>Alumnos, practicantes y equipos</span>
+          </div>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="pastel-card rounded-2xl p-5 border-l-4 border-l-emerald-400 bg-white">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Idiomas Activos</span>
+            <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="languages" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display">6 Idiomas</div>
+          <div class="text-xs text-emerald-700 font-semibold flex items-center gap-1">
+            <span>EN • FR • PT • IT • DE • ES</span>
+          </div>
+        </div>
+
+        <!-- KPI 4 -->
+        <div class="pastel-card rounded-2xl p-5 border-l-4 border-l-pink-400 bg-white">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tasa Satisfacción / NPS</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
+              <i data-lucide="star" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display">98.4% NPS</div>
+          <div class="text-xs text-pink-700 font-semibold flex items-center gap-1">
+            <span>Validación de empleabilidad global</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS SECTION: CHARTS OF PEOPLE IN CHARGE & DEPARTMENTS -->
+      <section id="analitica-personal" class="space-y-6 pt-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900 font-display flex items-center gap-2">
+              <span class="w-2.5 h-6 rounded-full bg-purple-500 inline-block"></span>
+              Analítica de Talento & Gráficas de Personas a Cargo
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500">
+              Visualiza en tiempo real el liderazgo por equipos, áreas de especialización y adopción tecnológica del staff.
+            </p>
+          </div>
+          <div class="text-xs font-semibold text-purple-700 bg-purple-50 px-3 py-1.5 rounded-xl border border-purple-200 inline-flex items-center gap-1.5 self-start">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Haz clic en las barras para abrir el dashboard del líder</span>
+          </div>
+        </div>
+
+        <!-- 3 Charts Grid -->
+        <div class="grid lg:grid-cols-12 gap-6">
+          
+          <!-- Chart 1: Personas a Cargo por Líder (Bar Chart) -->
+          <div class="lg:col-span-7 pastel-card rounded-2xl p-6 bg-white flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                  <i data-lucide="bar-chart-3" class="w-4 h-4 text-purple-600"></i>
+                  Personas / Alumnos a Cargo por Líder
+                </h3>
+                <p class="text-xs text-slate-400">Total de alumnos asignados, practicantes y equipos directos</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold border border-amber-200">
+                169 Asignados
+              </span>
+            </div>
+            
+            <div class="relative h-64 sm:h-72 w-full">
+              <canvas id="chartPersonasACargo"></canvas>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-sm bg-purple-400"></span>
+                <span>Líderes Docentes</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-sm bg-pink-400"></span>
+                <span>Coordinación Creativa</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-sm bg-sky-400"></span>
+                <span>Traducción & Localización</span>
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-sm bg-emerald-400"></span>
+                <span>Empleabilidad & IA</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Chart 2: Staff Distribution by Department (Doughnut) -->
+          <div class="lg:col-span-5 pastel-card rounded-2xl p-6 bg-white flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                  <i data-lucide="pie-chart" class="w-4 h-4 text-pink-600"></i>
+                  Distribución por Área
+                </h3>
+                <p class="text-xs text-slate-400">Proporción de roles en el staff</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200">
+                14 Colaboradores
+              </span>
+            </div>
+
+            <div class="relative h-56 sm:h-64 w-full flex items-center justify-center">
+              <canvas id="chartDepartamentos"></canvas>
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-medium">
+              <div class="p-2 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-900 flex items-center justify-between">
+                <span>🎓 Docentes</span>
+                <span class="font-bold">5 (36%)</span>
+              </div>
+              <div class="p-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-900 flex items-center justify-between">
+                <span>📣 Comunicaciones</span>
+                <span class="font-bold">5 (36%)</span>
+              </div>
+              <div class="p-2 rounded-xl bg-sky-50 border border-sky-100 text-sky-900 flex items-center justify-between">
+                <span>🌐 Traductores</span>
+                <span class="font-bold">3 (21%)</span>
+              </div>
+              <div class="p-2 rounded-xl bg-purple-50 border border-purple-100 text-purple-900 flex items-center justify-between">
+                <span>🚀 Liderazgo & IA</span>
+                <span class="font-bold">2 (14%)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Chart 3: AI Stack Adoption in Staff (Horizontal Bar) -->
+        <div class="pastel-card rounded-2xl p-6 bg-white">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4 text-emerald-600"></i>
+                Adopción de Herramientas de IA en el Staff Polyglot Map
+              </h3>
+              <p class="text-xs text-slate-400">Porcentaje de integrantes que integran activamente cada herramienta en su flujo de trabajo</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200 self-start">
+              100% Staff Potenciado con IA
+            </span>
+          </div>
+          <div class="relative h-52 sm:h-56 w-full">
+            <canvas id="chartAdopcionIA"></canvas>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: COLLABORATORS DIRECTORY & FILTERS -->
+      <!-- ========================================== -->
+      <section id="directorio" class="space-y-6 pt-6">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-display flex items-center gap-2.5">
+              <span>Directorio Oficial de Colaboradores</span>
+              <span id="resultsCountBadge" class="text-xs px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 font-bold">14 resultados</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">
+              Filtra por departamento, idiomas dominados o nivel de liderazgo, y haz clic en <strong>"Ver Dashboard"</strong> para acceder al panel individual.
+            </p>
+          </div>
+
+          <!-- View Mode Toggle Buttons -->
+          <div class="inline-flex items-center p-1 rounded-2xl bg-white border border-slate-200/80 shadow-2xs self-start text-xs font-bold">
+            <button onclick="changeViewMode('grid')" id="viewModeGridBtn" class="px-3.5 py-2 rounded-xl bg-purple-100 text-purple-800 flex items-center gap-1.5 transition-all">
+              <i data-lucide="layout-grid" class="w-4 h-4"></i>
+              <span>Tarjetas</span>
+            </button>
+            <button onclick="changeViewMode('table')" id="viewModeTableBtn" class="px-3.5 py-2 rounded-xl text-slate-600 hover:text-purple-700 flex items-center gap-1.5 transition-all">
+              <i data-lucide="table" class="w-4 h-4"></i>
+              <span>Tabla</span>
+            </button>
+            <button onclick="changeViewMode('tree')" id="viewModeTreeBtn" class="px-3.5 py-2 rounded-xl text-slate-600 hover:text-purple-700 flex items-center gap-1.5 transition-all">
+              <i data-lucide="git-fork" class="w-4 h-4"></i>
+              <span>Organigrama</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CONTROLS & FILTER BAR -->
+        <div class="pastel-card rounded-2xl p-4 sm:p-5 bg-white space-y-4">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+            
+            <!-- Search Input -->
+            <div class="sm:col-span-5 relative">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+              <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Buscar por nombre, rol, idioma o herramienta IA..." class="w-full pl-10 pr-9 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm focus:outline-hidden focus:border-purple-400 focus:bg-white transition-all text-slate-800 placeholder:text-slate-400 font-medium">
+              <button onclick="clearSearch()" id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Language Filter Dropdown -->
+            <div class="sm:col-span-3">
+              <select id="languageSelect" onchange="applyFilters()" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm text-slate-700 font-semibold focus:outline-hidden focus:border-purple-400 focus:bg-white transition-all">
+                <option value="all">🌍 Todos los idiomas</option>
+                <option value="Inglés">🇬🇧 Inglés</option>
+                <option value="Francés">🇫🇷 Francés</option>
+                <option value="Portugués">🇧🇷 Portugués</option>
+                <option value="Italiano">🇮🇹 Italiano</option>
+                <option value="Alemán">🇩🇪 Alemán</option>
+                <option value="Español">🇪🇸 Español</option>
+              </select>
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="sm:col-span-4">
+              <select id="sortSelect" onchange="applyFilters()" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm text-slate-700 font-semibold focus:outline-hidden focus:border-purple-400 focus:bg-white transition-all">
+                <option value="cargo-desc">👥 Más personas a cargo primero</option>
+                <option value="name-asc">🔤 Nombre (A - Z)</option>
+                <option value="name-desc">🔤 Nombre (Z - A)</option>
+                <option value="rating-desc">⭐ Mayor puntuación / NPS</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Category Pills & Only Leaders Checkbox -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+            
+            <div class="flex flex-wrap items-center gap-1.5 text-xs font-bold" id="categoryPillContainer">
+              <button onclick="setFilterCategory('all')" data-cat="all" class="cat-pill px-3 py-1.5 rounded-xl pastel-pill-active transition-all">
+                Todos (14)
+              </button>
+              <button onclick="setFilterCategory('docentes')" data-cat="docentes" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-all">
+                🎓 Docentes (5)
+              </button>
+              <button onclick="setFilterCategory('comunicaciones')" data-cat="comunicaciones" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-pink-700 hover:bg-pink-50 transition-all">
+                📣 Comunicaciones (5)
+              </button>
+              <button onclick="setFilterCategory('traductores')" data-cat="traductores" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-sky-700 hover:bg-sky-50 transition-all">
+                🌐 Traductores (3)
+              </button>
+              <button onclick="setFilterCategory('empleabilidad')" data-cat="empleabilidad" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all">
+                🚀 Empleabilidad & IA (2)
+              </button>
+            </div>
+
+            <!-- Only People in Charge Toggle -->
+            <label class="inline-flex items-center gap-2 cursor-pointer select-none text-xs font-bold text-slate-700 bg-amber-50/80 px-3 py-1.5 rounded-xl border border-amber-200 hover:bg-amber-100/60 transition-all">
+              <input type="checkbox" id="onlyWithChargeCheckbox" onchange="applyFilters()" class="w-4 h-4 rounded-md text-amber-500 focus:ring-amber-400 border-slate-300">
+              <span>Solo líderes con personas a cargo (10)</span>
+            </label>
+
+          </div>
+
+        </div>
+
+        <!-- 1. GRID CONTAINER (DEFAULT) -->
+        <div id="collaboratorsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically by JavaScript -->
+        </div>
+
+        <!-- 2. TABLE CONTAINER (HIDDEN INITIALLY) -->
+        <div id="collaboratorsTableContainer" class="hidden pastel-card rounded-2xl overflow-hidden bg-white">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th class="py-3.5 px-4">Colaborador</th>
+                  <th class="py-3.5 px-4">Área / Rol</th>
+                  <th class="py-3.5 px-4 text-center">Personas a Cargo</th>
+                  <th class="py-3.5 px-4">Idiomas</th>
+                  <th class="py-3.5 px-4">Stack IA</th>
+                  <th class="py-3.5 px-4 text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="collaboratorsTableBody" class="divide-y divide-slate-100 text-slate-700">
+                <!-- Rendered dynamically by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. TEAM HIERARCHY / ORGANIGRAMA CONTAINER (HIDDEN INITIALLY) -->
+        <div id="organigrama-section" class="hidden space-y-6">
+          <div class="pastel-card rounded-3xl p-6 sm:p-8 bg-white">
+            <div class="text-center max-w-xl mx-auto mb-8">
+              <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold border border-purple-200">
+                Estructura Organizacional Polyglot Map
+              </span>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 mt-2 font-display">
+                Mapa Jerárquico & Personas a Cargo
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                Visualización de las líneas de coordinación, áreas funcionales y practicantes/alumnos supervisados.
+              </p>
+            </div>
+
+            <!-- LEVEL 1: CEO & JOB COACHING -->
+            <div class="flex flex-col items-center">
+              <div onclick="navigateToStaff('melanie-almeyda')" class="cursor-pointer group pastel-card rounded-2xl p-4 sm:p-5 border-2 border-purple-300 bg-gradient-to-br from-purple-50 via-white to-purple-50/40 text-center max-w-sm w-full shadow-md hover:scale-105 transition-all">
+                <div class="relative w-16 h-16 mx-auto mb-2">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Melanie Almeyda" class="w-full h-full rounded-2xl object-cover border-2 border-purple-400">
+                  <span class="absolute -bottom-1 -right-1 text-sm">🇵🇪</span>
+                </div>
+                <div class="font-extrabold text-base text-slate-900 group-hover:text-purple-700 transition-colors">Melanie Almeyda</div>
+                <div class="text-xs font-semibold text-purple-700">CEO & Head of Job Coaching e IA</div>
+                <div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold border border-amber-300">
+                  <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                  <span>12 personas a cargo</span>
+                </div>
+                <div class="mt-2 text-[11px] text-purple-600 font-bold flex items-center justify-center gap-1">
+                  <span>Abrir Dashboard</span>
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </div>
+              </div>
+
+              <!-- Connecting Line Down -->
+              <div class="w-0.5 h-8 bg-purple-300 my-1"></div>
+              
+              <!-- Crossbar -->
+              <div class="w-3/4 max-w-4xl h-0.5 bg-purple-300 hidden md:block"></div>
+
+              <!-- LEVEL 2: AREA COORDINATORS -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-6xl mt-4">
+                
+                <!-- Coord 1: Comunicaciones -->
+                <div class="flex flex-col items-center">
+                  <div class="w-0.5 h-4 bg-purple-300 hidden md:block mb-2"></div>
+                  <div onclick="navigateToStaff('adriana-chavez')" class="cursor-pointer group pastel-card rounded-2xl p-4 border border-pink-300 bg-pink-50/30 text-center w-full shadow-xs hover:scale-102 transition-all">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Adriana Chávez" class="w-12 h-12 rounded-xl object-cover mx-auto mb-2 border border-pink-300">
+                    <div class="font-extrabold text-sm text-slate-900 group-hover:text-pink-700">Adriana Chávez 🇵🇪</div>
+                    <div class="text-[11px] font-semibold text-pink-700">Coordinadora Creativa Lead</div>
+                    <span class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+                      4 a cargo (Scarlet, Daniela, Alison, Britani)
+                    </span>
+                    <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="mt-2 inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-pink-600 hover:bg-pink-700 text-white text-[10px] font-bold transition-all shadow-2xs">
+                      <span>Dashboard Vercel</span>
+                      <i data-lucide="external-link" class="w-2.5 h-2.5"></i>
+                    </a>
+                  </div>
+
+                  <!-- Sub-nodes Comunicaciones -->
+                  <div class="w-0.5 h-4 bg-pink-200 my-1"></div>
+                  <div class="w-full space-y-2 text-xs">
+                    <div onclick="navigateToStaff('scarlet-rodriguez')" class="cursor-pointer p-2 rounded-xl bg-white border border-pink-200 text-slate-700 hover:bg-pink-50 flex items-center justify-between">
+                      <span class="font-semibold">Scarlet 🇪🇸</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">2 a cargo</span>
+                    </div>
+                    <div onclick="navigateToStaff('daniela-navarro')" class="cursor-pointer p-2 rounded-xl bg-white border border-pink-200 text-slate-700 hover:bg-pink-50 flex items-center justify-between">
+                      <span class="font-semibold">Daniela 🇨🇷</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">1 a cargo</span>
+                    </div>
+                    <div onclick="navigateToStaff('alison-paucar')" class="cursor-pointer p-2 rounded-xl bg-white border border-pink-200 text-slate-700 hover:bg-pink-50 flex items-center justify-between">
+                      <span class="font-semibold">Alison 🇵🇪</span>
+                      <span class="text-[10px] text-slate-400">Especialista</span>
+                    </div>
+                    <div onclick="navigateToStaff('britani-quispe')" class="cursor-pointer p-2 rounded-xl bg-white border border-pink-200 text-slate-700 hover:bg-pink-50 flex items-center justify-between">
+                      <span class="font-semibold">Britani 🇵🇪</span>
+                      <span class="text-[10px] text-slate-400">Especialista</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Coord 2: Docentes de Idiomas -->
+                <div class="flex flex-col items-center">
+                  <div class="w-0.5 h-4 bg-purple-300 hidden md:block mb-2"></div>
+                  <div onclick="navigateToStaff('jhonatan-vega')" class="cursor-pointer group pastel-card rounded-2xl p-4 border border-emerald-300 bg-emerald-50/30 text-center w-full shadow-xs hover:scale-102 transition-all">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Prof. Jhonatan" class="w-12 h-12 rounded-xl object-cover mx-auto mb-2 border border-emerald-300">
+                    <div class="font-extrabold text-sm text-slate-900 group-hover:text-emerald-700">Prof. Jhonatan 🇵🇪</div>
+                    <div class="text-[11px] font-semibold text-emerald-700">Docente Senior & Fonética</div>
+                    <span class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+                      35 alumnos & 2 asistentes
+                    </span>
+                  </div>
+
+                  <!-- Sub-nodes Docentes -->
+                  <div class="w-0.5 h-4 bg-emerald-200 my-1"></div>
+                  <div class="w-full space-y-2 text-xs">
+                    <div onclick="navigateToStaff('camila-desrosiers')" class="cursor-pointer p-2 rounded-xl bg-white border border-emerald-200 text-slate-700 hover:bg-emerald-50 flex items-center justify-between">
+                      <span class="font-semibold">Camila (FR) 🇫🇷</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">22 a cargo</span>
+                    </div>
+                    <div onclick="navigateToStaff('matteo-rossi')" class="cursor-pointer p-2 rounded-xl bg-white border border-emerald-200 text-slate-700 hover:bg-emerald-50 flex items-center justify-between">
+                      <span class="font-semibold">Matteo (IT) 🇮🇹</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">18 a cargo</span>
+                    </div>
+                    <div onclick="navigateToStaff('elena-bauer')" class="cursor-pointer p-2 rounded-xl bg-white border border-emerald-200 text-slate-700 hover:bg-emerald-50 flex items-center justify-between">
+                      <span class="font-semibold">Elena (DE) 🇩🇪</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">14 a cargo</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Coord 3: Traductores & Localización -->
+                <div class="flex flex-col items-center">
+                  <div class="w-0.5 h-4 bg-purple-300 hidden md:block mb-2"></div>
+                  <div onclick="navigateToStaff('lucas-silva')" class="cursor-pointer group pastel-card rounded-2xl p-4 border border-sky-300 bg-sky-50/30 text-center w-full shadow-xs hover:scale-102 transition-all">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Lucas Silva" class="w-12 h-12 rounded-xl object-cover mx-auto mb-2 border border-sky-300">
+                    <div class="font-extrabold text-sm text-slate-900 group-hover:text-sky-700">Lucas Silva 🇧🇷</div>
+                    <div class="text-[11px] font-semibold text-sky-700">Lead Translator & Prompt Eng</div>
+                    <span class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+                      3 traductores junior a cargo
+                    </span>
+                  </div>
+
+                  <!-- Sub-nodes Traductores -->
+                  <div class="w-0.5 h-4 bg-sky-200 my-1"></div>
+                  <div class="w-full space-y-2 text-xs">
+                    <div onclick="navigateToStaff('sofia-valenzuela')" class="cursor-pointer p-2 rounded-xl bg-white border border-sky-200 text-slate-700 hover:bg-sky-50 flex items-center justify-between">
+                      <span class="font-semibold">Sofía (Jurídico) 🇵🇪</span>
+                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">2 a cargo</span>
+                    </div>
+                    <div onclick="navigateToStaff('marco-bellini')" class="cursor-pointer p-2 rounded-xl bg-white border border-sky-200 text-slate-700 hover:bg-sky-50 flex items-center justify-between">
+                      <span class="font-semibold">Marco (Técnico) 🇮🇹</span>
+                      <span class="text-[10px] text-slate-400">Especialista</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Coord 4: Empleabilidad & IA -->
+                <div class="flex flex-col items-center">
+                  <div class="w-0.5 h-4 bg-purple-300 hidden md:block mb-2"></div>
+                  <div onclick="navigateToStaff('diego-morales')" class="cursor-pointer group pastel-card rounded-2xl p-4 border border-purple-300 bg-purple-50/30 text-center w-full shadow-xs hover:scale-102 transition-all">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80" alt="Diego Morales" class="w-12 h-12 rounded-xl object-cover mx-auto mb-2 border border-purple-300">
+                    <div class="font-extrabold text-sm text-slate-900 group-hover:text-purple-700">Diego Morales 🇲🇽</div>
+                    <div class="text-[11px] font-semibold text-purple-700">Lead Mentor IA & Prompts</div>
+                    <span class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+                      28 alumnos en transición a cargo
+                    </span>
+                  </div>
+
+                  <div class="w-0.5 h-4 bg-purple-200 my-1"></div>
+                  <div class="w-full p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 text-center text-xs text-purple-900 font-semibold">
+                    Cohortes Alfa & Beta de Empleabilidad Remota
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- EMPTY STATE MESSAGE (WHEN SEARCH HAS NO MATCHES) -->
+        <div id="noResultsState" class="hidden pastel-card rounded-2xl p-12 text-center bg-white">
+          <div class="w-16 h-16 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="search-x" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800">No encontramos colaboradores con esos filtros</h3>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mt-1 mb-5">
+            Intenta borrar los términos de búsqueda o seleccionar "Todos los departamentos".
+          </p>
+          <button onclick="resetAllFilters()" class="px-5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold hover:bg-purple-700 transition-all shadow-xs">
+            Restablecer todos los filtros
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: INDIVIDUAL STAFF DASHBOARD VIEW    -->
+    <!-- (SHOWN WHEN A COLLABORATOR IS SELECTED)    -->
+    <!-- ========================================== -->
+    <div id="individualStaffContainer" class="hidden space-y-8 animate-fadeIn">
+      
+      <!-- Back Navigation Header -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-slate-200/70">
+        <button onclick="showDirectoryView()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-purple-700 hover:border-purple-300 font-bold text-xs sm:text-sm transition-all shadow-2xs">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Volver al Directorio del Staff</span>
+        </button>
+
+        <div class="flex items-center gap-2 text-xs font-semibold">
+          <button onclick="navigateStaffPrev()" class="p-2 rounded-xl bg-white border border-slate-200 hover:border-purple-300 text-slate-600 hover:text-purple-700 transition-all" title="Colaborador anterior">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          </button>
+          <span id="staffPositionIndicator" class="text-slate-500">1 / 14</span>
+          <button onclick="navigateStaffNext()" class="p-2 rounded-xl bg-white border border-slate-200 hover:border-purple-300 text-slate-600 hover:text-purple-700 transition-all" title="Colaborador siguiente">
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+          <button onclick="copyCurrentStaffLink()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-100 text-purple-800 hover:bg-purple-200 transition-all font-bold">
+            <i data-lucide="link" class="w-3.5 h-3.5"></i>
+            <span>Copiar Enlace al Dashboard</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STAFF MEMBER DETAILED PROFILE CONTAINER (Rendered dynamically) -->
+      <div id="staffDetailContent"></div>
+
+    </div>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-2xl bg-slate-900/95 backdrop-blur-md text-white text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-2.5 border border-slate-700">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+      <span id="toastMessage">Acción completada con éxito</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-16 bg-white border-t border-slate-200/80 py-10 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
+          ✈️
+        </div>
+        <div>
+          <span class="font-extrabold text-slate-800 text-sm">POLYGLOT MAP</span>
+          <p>Idiomas en Vivo • Inteligencia Artificial • Empleabilidad Internacional</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-6 font-semibold">
+        <a href="#directorio" onclick="showDirectoryView(); return false;" class="hover:text-purple-600 transition-colors">Directorio</a>
+        <a href="#analitica-personal" class="hover:text-purple-600 transition-colors">Analítica de Personas a Cargo</a>
+        <a href="#organigrama-section" onclick="changeViewMode('tree'); return false;" class="hover:text-purple-600 transition-colors">Organigrama</a>
+        <a href="https://wa.me/51908934514" target="_blank" class="hover:text-emerald-600 transition-colors">WhatsApp Directo</a>
+      </div>
+
+      <div class="text-slate-400 text-center md:text-right">
+        © 2026 Polyglot Map. Diseñado con paleta de tonos pasteles ejecutivos.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- APPLICATION DATA & JAVASCRIPT LOGIC       -->
+  <!-- ========================================== -->
+  <script>
+    // -------------------------------------------------------------
+    // DATASET: Polyglot Map Staff Members
+    // -------------------------------------------------------------
+    const staffDatabase = [
+      {
+        id: "melanie-almeyda",
+        name: "Melanie Almeyda",
+        role: "CEO & Head of Job Coaching e Inteligencia Artificial",
+        department: "empleabilidad",
+        departmentName: "Empleabilidad & Liderazgo IA",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+        bio: "Estratega global y fundadora de Polyglot Map. Especialista en inserción laboral internacional de perfiles multilingües mediante automatización con IA y optimización de perfiles de alto valor (ATS, LinkedIn y Negociación Remota).",
+        personasACargoCount: 12,
+        personasACargoDesc: "Lidera 4 coordinadores de área y 8 coachees en aceleración ejecutiva.",
+        personasACargoList: [
+          { name: "Adriana Chávez", role: "Coordinadora Creativa Lead", flag: "🇵🇪", tag: "Comunicaciones" },
+          { name: "Prof. Jhonatan Vega", role: "Coordinador Docente de Idiomas", flag: "🇵🇪", tag: "Docentes" },
+          { name: "Lucas Silva", role: "Lead de Traducción & Localización", flag: "🇧🇷", tag: "Traductores" },
+          { name: "Diego Morales", role: "Lead Mentor de IA para Empleabilidad", flag: "🇲🇽", tag: "IA & Prompts" },
+          { name: "Grupo Mentoría Ejecutiva 2026", role: "8 Profesionales en Transición Global", flag: "🌎", tag: "Job Coaching" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 96, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio Alto (B2)", percent: 80, flag: "🇫🇷" },
+          { name: "Portugués", level: "Intermedio Alto (B2)", percent: 78, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "ChatGPT-4o", usage: "Job coaching, roleplays de entrevistas y prompts ejecutivos" },
+          { name: "Claude 3.5 Sonnet", usage: "Análisis semántico de CVs y optimización ATS" },
+          { name: "Perplexity Pro", usage: "Investigación de salarios y mercados laborales remotos" },
+          { name: "Notion AI", usage: "Sistemas operativos de talento y seguimiento de metas" },
+          { name: "Midjourney v6", usage: "Dirección de arte y conceptualización de marca" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "12 Asignados" },
+          metric2: { label: "Alumnos Colocados en Remoto", val: "140+ Alumnos" },
+          metric3: { label: "Tasa Satisfacción NPS", val: "99.2%" },
+          metric4: { label: "Horas de Mentoría", val: "320+ hrs" }
+        },
+        schedule: [
+          { day: "Lunes", slots: "10:00 - 12:00 (Daily) | 16:00 - 19:00 (Job Coaching Grupal I)" },
+          { day: "Martes", slots: "15:00 - 18:00 (Optimización LinkedIn & 1-on-1s)" },
+          { day: "Miércoles", slots: "10:00 - 12:00 (Revisión Estratégica) | 17:00 - 19:30 (Job Coaching II)" },
+          { day: "Jueves", slots: "16:00 - 19:00 (Simulaciones de Entrevistas Globales)" },
+          { day: "Viernes", slots: "09:30 - 12:00 (Sincronización con Coordinadores)" }
+        ],
+        email: "melanie@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.98
+      },
+      {
+        id: "adriana-chavez",
+        name: "Adriana Chávez",
+        role: "Coordinadora Creativa Lead & Producción de Contenidos",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+        bio: "Coordinadora general de estrategia visual y pauta creativa. Supervisa la Matriz Excel de contenidos, el flujo de grabación de videos 9:16, y el gatekeeper técnico obligatorio de piezas antes de salir a difusión.",
+        personasACargoCount: 4,
+        personasACargoDesc: "Lidera a 4 creativas oficiales del equipo de marketing y contenidos.",
+        personasACargoList: [
+          { name: "Scarlet", role: "Video Producer & Identidad Visual", flag: "🇪🇸", tag: "Edición & Copys" },
+          { name: "Daniela", role: "Content Creator & Sales Analytics", flag: "🇨🇷", tag: "Cámara & Métricas" },
+          { name: "Alison", role: "Content Strategist & Alianzas B2B", flag: "🇵🇪", tag: "Tendencias IA" },
+          { name: "Britani", role: "Community Lead & WhatsApp", flag: "🇵🇪", tag: "Comunidad" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 88, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio (B1)", percent: 65, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "Midjourney v6", usage: "Generación de fondos holográficos y artes high-tech" },
+          { name: "ChatGPT-4o", usage: "Pautas de contenido y revisión de copys persuasivos" },
+          { name: "CapCut Pro AI", usage: "Aprobación y sugerencias de subtítulos animados 9:16" },
+          { name: "Canva Magic Studio", usage: "Plantillas rápidas para historias y anuncios" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "4 Creativas" },
+          metric2: { label: "Piezas Aprobadas / Mes", val: "64+ Artes" },
+          metric3: { label: "Cumplimiento de Matriz", val: "98.5%" },
+          metric4: { label: "Alcance Audiovisual", val: "1.2M Vistas" }
+        },
+        schedule: [
+          { day: "Lunes", slots: "09:00 - 11:30 (Pautas semanales de video con Daniela y Scarlet)" },
+          { day: "Martes", slots: "14:00 - 17:00 (Revisión de artes en Matriz Excel & DAM)" },
+          { day: "Miércoles", slots: "10:00 - 12:00 (Dailies de producción en Google Meet)" },
+          { day: "Jueves", slots: "15:00 - 18:00 (Aprobación final de los 4 videos cortos)" },
+          { day: "Viernes", slots: "10:00 - 13:00 (Revisión de analítica con Alison y Daniela)" }
+        ],
+        email: "adriana.chavez@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.95
+      },
+      {
+        id: "jhonatan-vega",
+        name: "Prof. Jhonatan Vega",
+        role: "Docente Senior de Idiomas & Fonética en Vivo",
+        department: "docentes",
+        departmentName: "Docentes de Idiomas",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+        bio: "Pedagogo y lingüista políglota con más de 8 años de experiencia en enseñanza virtual acelerada. Creador de la metodología 'Shadowing con IA' para que los estudiantes pierdan el miedo a hablar desde la primera clase.",
+        personasACargoCount: 35,
+        personasACargoDesc: "A cargo de 33 alumnos de inglés y portugués en vivo + 2 asistentes de cátedra.",
+        personasACargoList: [
+          { name: "Cohorte Portugués desde Cero A1", role: "18 Estudiantes Activos", flag: "🇧🇷", tag: "En Vivo" },
+          { name: "Cohorte Inglés Conversacional B1", role: "15 Estudiantes Activos", flag: "🇬🇧", tag: "En Vivo" },
+          { name: "Asistente Fonético Jr.", role: "Apoyo en Corrección de Audios", flag: "🇵🇪", tag: "Cátedra" },
+          { name: "Tutor de Tareas y Ejercicios", role: "Seguimiento en WhatsApp", flag: "🇵🇪", tag: "Cátedra" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Portugués", level: "Bilingüe (C2)", percent: 98, flag: "🇧🇷" },
+          { name: "Inglés", level: "Avanzado Fluido (C2)", percent: 95, flag: "🇬🇧" },
+          { name: "Italiano", level: "Intermedio (B1)", percent: 70, flag: "🇮🇹" }
+        ],
+        aiStack: [
+          { name: "Whisper AI", usage: "Análisis acústico y corrección fonética automatizada" },
+          { name: "ChatGPT Voice Mode", usage: "Roleplays conversacionales para práctica asíncrona" },
+          { name: "ElevenLabs", usage: "Creación de audios de acentos regionales nativos" },
+          { name: "Anki Pro con IA", usage: "Mazos inteligentes de repetición espaciada" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "35 Alumnos/Doc" },
+          metric2: { label: "Horas Dictadas en Vivo", val: "1,450+ hrs" },
+          metric3: { label: "Retención de Alumnos", val: "94.2%" },
+          metric4: { label: "Aprobación de Nivel", val: "96.8%" }
+        },
+        schedule: [
+          { day: "Lunes", slots: "19:00 - 20:30 (Portugués A1 en Vivo) | 20:45 - 22:00 (Inglés)" },
+          { day: "Martes", slots: "18:00 - 20:00 (Asesorías fonéticas individuales con IA)" },
+          { day: "Miércoles", slots: "19:00 - 20:30 (Portugués A1 en Vivo) | 20:45 - 22:00 (Inglés)" },
+          { day: "Jueves", slots: "18:30 - 21:00 (Club de Shadowing & Audios)" },
+          { day: "Sábado", slots: "09:00 - 12:30 (Maratón de Conversación y Feedback)" }
+        ],
+        email: "jhonatan.vega@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.97
+      },
+      {
+        id: "camila-desrosiers",
+        name: "Camila Desrosiers",
+        role: "Docente de Francés & Directora del Espacio Cultural",
+        department: "docentes",
+        departmentName: "Docentes de Idiomas",
+        country: "Francia / Perú",
+        countryFlag: "🇫🇷",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        bio: "Especialista en inmersión cultural y conversación natural en francés. Dirige el 'Espacio Cultural' de Polyglot Map, impulsando cafés virtuales, análisis de cine y clubes de debate en vivo.",
+        personasACargoCount: 22,
+        personasACargoDesc: "22 alumnos en el programa intensivo DELF y miembros del club cultural.",
+        personasACargoList: [
+          { name: "Taller Café Cultural Francófono", role: "14 Participantes Activos", flag: "☕", tag: "Espacio Cultural" },
+          { name: "Grupo Francés DELF B1 Intensivo", role: "8 Alumnos Preparándose", flag: "🇫🇷", tag: "Certificación" }
+        ],
+        languages: [
+          { name: "Francés", level: "Nativo (C2)", percent: 100, flag: "🇫🇷" },
+          { name: "Español", level: "Bilingüe (C2)", percent: 96, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 89, flag: "🇬🇧" }
+        ],
+        aiStack: [
+          { name: "DeepL Write", usage: "Corrección estilística y giros idiomáticos coloquiales" },
+          { name: "Claude 3.5 Sonnet", usage: "Generación de textos literarios adaptados por nivel CEFR" },
+          { name: "ChatGPT-4o", usage: "Simulación de situaciones en aeropuertos, cafés y museos" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "22 Alumnos" },
+          metric2: { label: "Sesiones Culturales", val: "90+ Realizadas" },
+          metric3: { label: "Aprobación DELF", val: "100%" },
+          metric4: { label: "Satisfacción Alumnos", val: "4.98 / 5.0" }
+        },
+        schedule: [
+          { day: "Martes", slots: "17:00 - 18:30 (Espacio Cultural Francés en Vivo)" },
+          { day: "Jueves", slots: "18:00 - 20:00 (DELF B1 Preparación y Gramática Viva)" },
+          { day: "Sábado", slots: "10:30 - 12:30 (Café Lingüístico de Debate)" }
+        ],
+        email: "camila.desrosiers@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.98
+      },
+      {
+        id: "scarlet-rodriguez",
+        name: "Scarlet Rodríguez",
+        role: "Video Producer, Copywriter & Identidad Visual",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "España",
+        countryFlag: "🇪🇸",
+        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+        bio: "Diseñadora audiovisual y copywriter persuasiva. Encargada de plasmar la identidad oficial de Polyglot Map (Cyber-Futurista Educativo & Glow) y realizar la edición profesional de los 4 videos cortos semanales.",
+        personasACargoCount: 2,
+        personasACargoDesc: "Supervisa a 2 practicantes en montaje y efectos sonoros.",
+        personasACargoList: [
+          { name: "Editor Audiovisual Jr.", role: "Cortes de retención y subtítulos 9:16", flag: "🇪🇸", tag: "Edición" },
+          { name: "Asistente de Hooks & Guiones", role: "Investigación de audios virales", flag: "🇪🇸", tag: "Copywriting" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 90, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio (B1)", percent: 65, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Premiere Pro AI Speech", usage: "Ecualización sonora y waveforms bioluminiscentes" },
+          { name: "CapCut Pro AI", usage: "Animaciones de títulos 9:16 para TikTok y Reels" },
+          { name: "Claude 3.5", usage: "Redacción de ganchos persuasivos y CTAs con urgencia" },
+          { name: "Midjourney v6", usage: "Assets visuales de lentes AR y esferas holográficas" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "2 Asistentes" },
+          metric2: { label: "Videos Editados / Mes", val: "16 Videos 9:16" },
+          metric3: { label: "Aprobación al 1er Corte", val: "94%" },
+          metric4: { label: "Retención Promedio", val: "68% en 3s" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:00 - 15:00 (Hora España / Remoto activo)" },
+          { day: "Jueves", slots: "16:00 (Sincronización de entrega con Adriana Chávez)" }
+        ],
+        email: "scarlet@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.93
+      },
+      {
+        id: "daniela-navarro",
+        name: "Daniela Navarro",
+        role: "Content Creator & Content Analytic en Ventas",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Costa Rica",
+        countryFlag: "🇨🇷",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+        bio: "Creadora de contenido frente a cámara y analista de métricas de ventas. Graba los 4 videos semanales siguiendo las pautas de Adriana y analiza el embudo de conversión hacia WhatsApp.",
+        personasACargoCount: 1,
+        personasACargoDesc: "A cargo de un asistente de tracking de datos y etiquetado de leads.",
+        personasACargoList: [
+          { name: "Asistente de Métricas", role: "Etiquetado UTM y conversiones WhatsApp", flag: "🇨🇷", tag: "Analytics" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇨🇷" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 85, flag: "🇬🇧" },
+          { name: "Italiano", level: "Básico Inicial (A2)", percent: 50, flag: "🇮🇹" }
+        ],
+        aiStack: [
+          { name: "ChatGPT-4o", usage: "Teleprompter dinámico y preparación de ganchos verbales" },
+          { name: "Metricool AI", usage: "Análisis de mejores horas de publicación y viralidad" },
+          { name: "Opus Clip", usage: "Detección automática de momentos destacados en videollamadas" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "1 Asistente" },
+          metric2: { label: "Videos Grabados / Mes", val: "16 Videos" },
+          metric3: { label: "Leads Calificados / Mes", val: "480+ Leads" },
+          metric4: { label: "Conversión a Chat", val: "18.4%" }
+        },
+        schedule: [
+          { day: "Lunes y Miércoles", slots: "14:00 - 18:00 (Jornada de grabación de videos cortos)" },
+          { day: "Martes y Jueves", slots: "10:00 - 13:00 (Reportes de analítica con Adriana y Alison)" }
+        ],
+        email: "daniela@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.91
+      },
+      {
+        id: "lucas-silva",
+        name: "Lucas Silva",
+        role: "Lead Translator & Prompt Engineer en Localización",
+        department: "traductores",
+        departmentName: "Traductores & Localización",
+        country: "Brasil",
+        countryFlag: "🇧🇷",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        bio: "Traductor certificado y pionero en traducción asistida por IA (CAT tools + LLM post-editing). Lidera proyectos de localización internacional de software, materiales pedagógicos y plataformas web.",
+        personasACargoCount: 3,
+        personasACargoDesc: "Lidera a 3 traductores junior y lingüistas de control de calidad.",
+        personasACargoList: [
+          { name: "Traductor Jr. PT-EN", role: "Traducción de módulos educativos", flag: "🇧🇷", tag: "Localización" },
+          { name: "Revisora de Glosarios", role: "Consistencia terminológica corporativa", flag: "🇧🇷", tag: "QA Lingüístico" },
+          { name: "Especialista en QA Digital", role: "Validación de interfaces en navegadores", flag: "🇵🇪", tag: "Software QA" }
+        ],
+        languages: [
+          { name: "Portugués", level: "Nativo (C2)", percent: 100, flag: "🇧🇷" },
+          { name: "Español", level: "Bilingüe (C2)", percent: 95, flag: "🇪🇸" },
+          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 92, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio (B1)", percent: 65, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "DeepL Pro API", usage: "Pre-traducción neuronal de alto rendimiento" },
+          { name: "Claude 3.5 Sonnet", usage: "Adaptación cultural, tono de marca y post-edición" },
+          { name: "Smartling AI", usage: "Gestión de memoria de traducción y glosarios dinámicos" },
+          { name: "Whisper AI", usage: "Transcripción multilingüe automatizada" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "3 Traductores" },
+          metric2: { label: "Palabras Procesadas", val: "450k+ palabras" },
+          metric3: { label: "Reducción de Tiempo IA", val: "-65% tiempo" },
+          metric4: { label: "Precisión Terminológica", val: "99.4%" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "08:30 - 17:30 (Jornada de localización & QA)" },
+          { day: "Martes y Jueves", slots: "11:00 - 12:30 (Revisión de glosarios con equipo)" }
+        ],
+        email: "lucas.silva@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.96
+      },
+      {
+        id: "diego-morales",
+        name: "Diego Morales",
+        role: "Lead Mentor de IA para Empleabilidad & Prompts",
+        department: "empleabilidad",
+        departmentName: "Empleabilidad & Liderazgo IA",
+        country: "México",
+        countryFlag: "🇲🇽",
+        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+        bio: "Ingeniero de prompts y consultor de automatización para profesionales internacionales. Entrena a los talentos de Polyglot Map en cómo multiplicar su productividad utilizando herramientas de IA generativa.",
+        personasACargoCount: 28,
+        personasACargoDesc: "28 profesionales bilingües en cohortes de automatización de carrera.",
+        personasACargoList: [
+          { name: "Cohorte Alfa: IA para Profesionales", role: "15 Participantes en Mentoría", flag: "🤖", tag: "Productividad" },
+          { name: "Cohorte Beta: Automatización Remota", role: "13 Profesionales en Transición", flag: "💼", tag: "Empleabilidad" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇲🇽" },
+          { name: "Inglés", level: "Fluido Profesional (C1)", percent: 92, flag: "🇬🇧" },
+          { name: "Alemán", level: "Intermedio (B1)", percent: 60, flag: "🇩🇪" }
+        ],
+        aiStack: [
+          { name: "OpenAI API / ChatGPT-4o", usage: "Arquitectura de prompts y agentes personalizados" },
+          { name: "Anthropic Claude 3.5", usage: "Generación y refactorización de flujos de trabajo" },
+          { name: "Make.com & Zapier", usage: "Automatización de postulaciones y alertas de empleo" },
+          { name: "Cursor / v0", usage: "Prototipado rápido de portfolios interactivos" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "28 Alumnos" },
+          metric2: { label: "Automatizaciones Creadas", val: "180+ Flujos" },
+          metric3: { label: "Incremento Salarial Alumnos", val: "+40% Promedio" },
+          metric4: { label: "Rating de Mentoría", val: "4.96 / 5.0" }
+        },
+        schedule: [
+          { day: "Martes", slots: "19:00 - 21:00 (Masterclass de Prompts Avanzados)" },
+          { day: "Jueves", slots: "19:00 - 21:00 (Taller Práctico de Automatización con Make)" },
+          { day: "Sábado", slots: "10:00 - 12:30 (Revisión de Casos de Éxito y Portfolios)" }
+        ],
+        email: "diego.morales@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.96
+      },
+      {
+        id: "alison-paucar",
+        name: "Alison Páucar",
+        role: "Content Strategist & Alianzas B2B en IA",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+        bio: "Investigadora de tendencias en IA y estratega de contenido comercial. Diseña 4 piezas gráficas semanales sobre ofertas laborales y prospecta acuerdos corporativos para contratación de egresados.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Especialista individual de alta concentración estratégica.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 89, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio Alto (B2)", percent: 75, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "Perplexity AI", usage: "Investigación de vacantes remotas y tendencias salariales" },
+          { name: "Claude 3.5 Sonnet", usage: "Redacción de propuestas comerciales B2B" },
+          { name: "Canva Pro", usage: "Diseño de 4 piezas gráficas semanales para WhatsApp y feed" }
+        ],
+        metrics: {
+          metric1: { label: "Piezas Semanales", val: "4 Piezas" },
+          metric2: { label: "Propuestas B2B", val: "12 Enviadas" },
+          metric3: { label: "Engagement B2B", val: "+38% Interacción" },
+          metric4: { label: "Satisfacción Equipo", val: "4.92 / 5.0" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:30 - 16:30 (Investigación & Contenidos)" }
+        ],
+        email: "alison@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.92
+      },
+      {
+        id: "matteo-rossi",
+        name: "Matteo Rossi",
+        role: "Docente de Italiano & Fonética Melódica",
+        department: "docentes",
+        departmentName: "Docentes de Idiomas",
+        country: "Italia",
+        countryFlag: "🇮🇹",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+        bio: "Docente nativo de Florencia, especialista en fonética y entonación musical del italiano. Dicta clases interactivas basadas en situaciones reales de viaje, negocios y arte culinario.",
+        personasACargoCount: 18,
+        personasACargoDesc: "18 estudiantes activos en grupos de italiano inicial y conversacional.",
+        personasACargoList: [
+          { name: "Taller Italiano per Viaggiare", role: "10 Alumnos en Simulación", flag: "🇮🇹", tag: "Conversación" },
+          { name: "Grupo Fonética & Cultura A1", role: "8 Alumnos en Vivo", flag: "🇮🇹", tag: "Gramática Viva" }
+        ],
+        languages: [
+          { name: "Italiano", level: "Nativo (C2)", percent: 100, flag: "🇮🇹" },
+          { name: "Español", level: "Fluido Profesional (C1)", percent: 90, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 88, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio Alto (B2)", percent: 75, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "ChatGPT Voice Mode", usage: "Práctica guiada de pronunciación italiana" },
+          { name: "DeepL Pro", usage: "Verificación de modismos toscanos y expresiones formales" },
+          { name: "Quizlet IA", usage: "Tarjetas dinámicas de vocabulario gastronómico y de negocios" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "18 Alumnos" },
+          metric2: { label: "Horas Dictadas", val: "820+ hrs" },
+          metric3: { label: "Satisfacción Clase", val: "4.96 / 5.0" },
+          metric4: { label: "Asistencia Promedio", val: "95.5%" }
+        },
+        schedule: [
+          { day: "Lunes y Miércoles", slots: "17:30 - 19:30 (Italiano per Viaggiare)" },
+          { day: "Viernes", slots: "18:00 - 20:00 (Taller de Fonética & Ópera)" }
+        ],
+        email: "matteo.rossi@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.96
+      },
+      {
+        id: "sofia-valenzuela",
+        name: "Sofía Valenzuela",
+        role: "Traductora Jurídica & Subtitulaje con IA",
+        department: "traductores",
+        departmentName: "Traductores & Localización",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80",
+        bio: "Traductora colegiada con especialidad en contratos comerciales internacionales y subtitulaje sincronizado para material audiovisual corporativo con modelos Whisper.",
+        personasACargoCount: 2,
+        personasACargoDesc: "A cargo de 2 asistentes en sincronización de subtítulos y terminología.",
+        personasACargoList: [
+          { name: "Asistente de Sincronización .SRT", role: "Alineación de tiempos de subtítulos", flag: "🇵🇪", tag: "Subtitulaje" },
+          { name: "Revisor Jurídico Jr.", role: "Validación de cláusulas legales EN/ES", flag: "🇵🇪", tag: "Legal QA" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 96, flag: "🇬🇧" },
+          { name: "Francés", level: "Avanzado (C1)", percent: 85, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Whisper Large-v3", usage: "Transcripción de audios con detección de silencios" },
+          { name: "Subtitle Edit AI", usage: "Segmentación automática de caracteres por segundo" },
+          { name: "DeepL Pro", usage: "Traducción jurídica con glosario corporativo blindado" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "2 Asistentes" },
+          metric2: { label: "Minutos Subtitulados", val: "3,200+ min" },
+          metric3: { label: "Contratos Traducidos", val: "140+ docs" },
+          metric4: { label: "Error Rate", val: "< 0.1%" }
+        },
+        schedule: [
+          { day: "Lunes a Jueves", slots: "09:00 - 14:00 (Traducción Jurídica & Subtitulaje)" }
+        ],
+        email: "sofia.valenzuela@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.94
+      },
+      {
+        id: "britani-quispe",
+        name: "Britani Quispe",
+        role: "Community Engagement & WhatsApp Lead",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+        bio: "Dinamizadora de la comunidad oficial de WhatsApp de Polyglot Map. Conecta día a día con postulantes de becas, comparte retos diarios de vocabulario y atiende consultas con calidez humana.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Especialista clave en fidelización y soporte comunitario.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Intermedio Alto (B2)", percent: 76, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio (B1)", percent: 62, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "ManyChat", usage: "Automatización de respuestas frecuentes y bienvenida" },
+          { name: "ChatGPT-4o", usage: "Redacción de retos interactivos y trivia lingüística" },
+          { name: "Canva Magic", usage: "Stickers y avisos visuales para grupos de WhatsApp" }
+        ],
+        metrics: {
+          metric1: { label: "Mensajes Atendidos", val: "2,800+ chats" },
+          metric2: { label: "Tiempo de Respuesta", val: "< 4 minutos" },
+          metric3: { label: "Participación en Retos", val: "84% Activa" },
+          metric4: { label: "Satisfacción Alumnos", val: "4.95 / 5.0" }
+        },
+        schedule: [
+          { day: "Lunes a Sábado", slots: "Turnos rotativos de atención y dinamización en WhatsApp" }
+        ],
+        email: "britani@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.95
+      },
+      {
+        id: "elena-bauer",
+        name: "Elena Bauer",
+        role: "Docente de Alemán & Traductora Técnica",
+        department: "docentes",
+        departmentName: "Docentes de Idiomas",
+        country: "Alemania",
+        countryFlag: "🇩🇪",
+        avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80",
+        bio: "Docente certificada con experiencia en preparación de exámenes Goethe-Institut y traducción técnica bilingüe. Entrena a profesionales de TI e ingeniería para entrevistas y visas laborales en Europa.",
+        personasACargoCount: 14,
+        personasACargoDesc: "14 alumnos en preparación intensiva para certificación Goethe A1-B1.",
+        personasACargoList: [
+          { name: "Grupo Goethe-Zertifikat B1", role: "8 Alumnos en Simulacro", flag: "🇩🇪", tag: "Certificación" },
+          { name: "Grupo Alemán IT para Empleo", role: "6 Ingenieros de Software", flag: "🇩🇪", tag: "Empleabilidad" }
+        ],
+        languages: [
+          { name: "Alemán", level: "Nativo (C2)", percent: 100, flag: "🇩🇪" },
+          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 94, flag: "🇬🇧" },
+          { name: "Español", level: "Avanzado (C1)", percent: 86, flag: "🇪🇸" }
+        ],
+        aiStack: [
+          { name: "ChatGPT-4o", usage: "Simulacros de entrevistas técnicas en Múnich y Berlín" },
+          { name: "DeepL Pro", usage: "Traducción de manuales de ingeniería y glosarios" },
+          { name: "Anki con IA", usage: "Automatización de artículos y casos de declinación (Der/Die/Das)" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "14 Alumnos" },
+          metric2: { label: "Visas de Empleo Logradas", val: "28 Aprobadas" },
+          metric3: { label: "Tasa Aprobación Goethe", val: "92%" },
+          metric4: { label: "Rating Pedagógico", val: "4.94 / 5.0" }
+        },
+        schedule: [
+          { day: "Lunes y Miércoles", slots: "18:00 - 20:00 (Alemán Goethe Intensivo)" },
+          { day: "Jueves", slots: "17:00 - 19:30 (Alemán Técnico para TI)" }
+        ],
+        email: "elena.bauer@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.94
+      },
+      {
+        id: "marco-bellini",
+        name: "Marco Bellini",
+        role: "Traductor Técnico & Especialista en Post-Edición IA",
+        department: "traductores",
+        departmentName: "Traductores & Localización",
+        country: "Italia / Perú",
+        countryFlag: "🇮🇹",
+        avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
+        bio: "Ingeniero de localización y traductor especializado en manuales técnicos, ingeniería y software multilingüe. Integra flujos de post-edición neuronal con control estricto de calidad ISO 17100.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Especialista técnico senior en control de calidad algorítmica.",
+        personasACargoList: [],
+        languages: [
+          { name: "Italiano", level: "Nativo (C2)", percent: 100, flag: "🇮🇹" },
+          { name: "Español", level: "Bilingüe (C2)", percent: 96, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 90, flag: "🇬🇧" }
+        ],
+        aiStack: [
+          { name: "DeepL Pro API", usage: "Post-edición rápida de textos de alta complejidad" },
+          { name: "Claude 3.5 Sonnet", usage: "Comprobación de ambigüedades terminológicas" },
+          { name: "Phrase Localization", usage: "Gestión de claves de localización para aplicaciones" }
+        ],
+        metrics: {
+          metric1: { label: "Palabras Procesadas", val: "600k+ palabras" },
+          metric2: { label: "Precisión de Glosario", val: "99.8%" },
+          metric3: { label: "Tasa de Corrección", val: "< 0.2%" },
+          metric4: { label: "Satisfacción Clientes", val: "4.95 / 5.0" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:00 - 17:00 (Post-Edición y QA)" }
+        ],
+        email: "marco.bellini@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.95
+      }
+    ];
+
+    // Current State
+    let currentCategory = 'all';
+    let currentLanguage = 'all';
+    let currentSort = 'cargo-desc';
+    let onlyWithCharge = false;
+    let searchQuery = '';
+    let currentViewMode = 'grid'; // 'grid' | 'table' | 'tree'
+    let currentStaffId = null;
+
+    // Charts instances
+    let chartPersonasInstance = null;
+    let chartDepartamentosInstance = null;
+    let chartAdopcionIAInstance = null;
+
+    // Pastel styling dictionary for departments
+    const deptStyles = {
+      docentes: {
+        badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        lightBg: 'bg-emerald-50/50',
+        accentBorder: 'border-emerald-200',
+        textAccent: 'text-emerald-700',
+        icon: 'graduation-cap'
+      },
+      comunicaciones: {
+        badgeBg: 'bg-pink-100 text-pink-800 border-pink-200',
+        lightBg: 'bg-pink-50/50',
+        accentBorder: 'border-pink-200',
+        textAccent: 'text-pink-700',
+        icon: 'megaphone'
+      },
+      traductores: {
+        badgeBg: 'bg-sky-100 text-sky-800 border-sky-200',
+        lightBg: 'bg-sky-50/50',
+        accentBorder: 'border-sky-200',
+        textAccent: 'text-sky-700',
+        icon: 'languages'
+      },
+      empleabilidad: {
+        badgeBg: 'bg-purple-100 text-purple-800 border-purple-200',
+        lightBg: 'bg-purple-50/50',
+        accentBorder: 'border-purple-200',
+        textAccent: 'text-purple-700',
+        icon: 'rocket'
+      }
+    };
+
+    // -------------------------------------------------------------
+    // INITIALIZATION & ROUTING
+    // -------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      initCharts();
+      handleHashRouting();
+      window.addEventListener('hashchange', handleHashRouting);
+      lucide.createIcons();
+    });
+
+    function handleHashRouting() {
+      const hash = window.location.hash;
+      if (hash.startsWith('#staff=')) {
+        const staffId = hash.replace('#staff=', '').trim();
+        showIndividualDashboard(staffId);
+      } else if (hash === '#organigrama-section') {
+        showDirectoryView();
+        changeViewMode('tree');
+      } else {
+        showDirectoryView();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // CHARTS SETUP (PASTEL COLORS)
+    // -------------------------------------------------------------
+    function initCharts() {
+      // 1. Chart Personas a Cargo por Líder
+      const leadersData = staffDatabase
+        .filter(s => s.personasACargoCount > 0)
+        .sort((a, b) => b.personasACargoCount - a.personasACargoCount);
+
+      const ctx1 = document.getElementById('chartPersonasACargo').getContext('2d');
+      chartPersonasInstance = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: leadersData.map(s => `${s.name.split(' ')[0]} (${s.personasACargoCount})`),
+          datasets: [{
+            label: 'Personas a Cargo',
+            data: leadersData.map(s => s.personasACargoCount),
+            backgroundColor: [
+              'rgba(167, 243, 208, 0.9)', // Jhonatan (mint pastel)
+              'rgba(196, 181, 253, 0.9)', // Diego (purple pastel)
+              'rgba(167, 243, 208, 0.85)', // Camila (mint pastel)
+              'rgba(167, 243, 208, 0.8)', // Matteo (mint pastel)
+              'rgba(167, 243, 208, 0.75)', // Elena (mint pastel)
+              'rgba(244, 114, 182, 0.9)', // Melanie (pink pastel)
+              'rgba(254, 215, 170, 0.9)', // Adriana (peach pastel)
+              'rgba(186, 230, 253, 0.9)', // Lucas (sky pastel)
+              'rgba(254, 215, 170, 0.8)', // Scarlet
+              'rgba(186, 230, 253, 0.8)', // Sofia
+              'rgba(254, 215, 170, 0.75)' // Daniela
+            ],
+            borderColor: [
+              '#10B981', '#8B5CF6', '#10B981', '#10B981', '#10B981',
+              '#EC4899', '#F97316', '#0284C7', '#F97316', '#0284C7', '#F97316'
+            ],
+            borderWidth: 1.5,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1E293B',
+              padding: 10,
+              titleFont: { size: 12, weight: 'bold' },
+              bodyFont: { size: 11 },
+              cornerRadius: 8,
+              callbacks: {
+                label: function(context) {
+                  const staff = leadersData[context.dataIndex];
+                  return ` ${staff.personasACargoCount} personas: ${staff.personasACargoDesc}`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(226, 232, 240, 0.6)' },
+              ticks: { font: { size: 11, family: 'Plus Jakarta Sans' }, color: '#64748B' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10, family: 'Plus Jakarta Sans', weight: '600' }, color: '#334155' }
+            }
+          },
+          onClick: (event, elements) => {
+            if (elements && elements.length > 0) {
+              const index = elements[0].index;
+              const selectedLeader = leadersData[index];
+              navigateToStaff(selectedLeader.id);
+            }
+          }
+        }
+      });
+
+      // 2. Chart Departamentos (Doughnut)
+      const ctx2 = document.getElementById('chartDepartamentos').getContext('2d');
+      chartDepartamentosInstance = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: ['Docentes (5)', 'Comunicaciones (5)', 'Traductores (3)', 'Empleabilidad e IA (2)'],
+          datasets: [{
+            data: [5, 5, 3, 2],
+            backgroundColor: [
+              '#6EE7B7', // Mint pastel
+              '#F472B6', // Pink pastel
+              '#7DD3FC', // Sky pastel
+              '#C084FC'  // Purple pastel
+            ],
+            borderWidth: 3,
+            borderColor: '#FFFFFF',
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                padding: 12,
+                font: { size: 11, family: 'Plus Jakarta Sans', weight: '600' },
+                color: '#334155'
+              }
+            }
+          },
+          cutout: '68%'
+        }
+      });
+
+      // 3. Chart Adopción de Herramientas de IA (Horizontal Bar)
+      const ctx3 = document.getElementById('chartAdopcionIA').getContext('2d');
+      chartAdopcionIAInstance = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+          labels: ['ChatGPT-4o & Voice', 'Claude 3.5 Sonnet', 'DeepL Pro & API', 'Whisper AI Audio', 'Midjourney v6', 'Make & Automation'],
+          datasets: [{
+            label: '% Uso Activo',
+            data: [100, 86, 72, 64, 50, 43],
+            backgroundColor: [
+              '#C4B5FD', // Soft Purple
+              '#FBCFE8', // Soft Pink
+              '#BAE6FD', // Soft Sky
+              '#A7F3D0', // Soft Mint
+              '#FED7AA', // Soft Peach
+              '#FEF08A'  // Soft Butter
+            ],
+            borderColor: [
+              '#8B5CF6', '#EC4899', '#0284C7', '#10B981', '#FB923C', '#EAB308'
+            ],
+            borderWidth: 1.5,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1E293B',
+              callbacks: {
+                label: (context) => ` ${context.parsed.x}% del staff lo utiliza activamente`
+              }
+            }
+          },
+          scales: {
+            x: {
+              max: 100,
+              grid: { color: 'rgba(226, 232, 240, 0.6)' },
+              ticks: {
+                callback: (val) => val + '%',
+                font: { size: 11, family: 'Plus Jakarta Sans' },
+                color: '#64748B'
+              }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: 11, family: 'Plus Jakarta Sans', weight: '600' }, color: '#334155' }
+            }
+          }
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // FILTERING & RENDERING LOGIC
+    // -------------------------------------------------------------
+    function getFilteredStaff() {
+      return staffDatabase.filter(staff => {
+        // Department filter
+        if (currentCategory !== 'all' && staff.department !== currentCategory) {
+          return false;
+        }
+
+        // Language filter
+        if (currentLanguage !== 'all') {
+          const hasLang = staff.languages.some(l => l.name.toLowerCase() === currentLanguage.toLowerCase());
+          if (!hasLang) return false;
+        }
+
+        // Only with charge filter
+        if (onlyWithCharge && staff.personasACargoCount <= 0) {
+          return false;
+        }
+
+        // Search query filter
+        if (searchQuery.trim() !== '') {
+          const q = searchQuery.toLowerCase().trim();
+          const matchName = staff.name.toLowerCase().includes(q);
+          const matchRole = staff.role.toLowerCase().includes(q);
+          const matchDept = staff.departmentName.toLowerCase().includes(q);
+          const matchBio = staff.bio.toLowerCase().includes(q);
+          const matchLang = staff.languages.some(l => l.name.toLowerCase().includes(q));
+          const matchAI = staff.aiStack.some(t => t.name.toLowerCase().includes(q) || t.usage.toLowerCase().includes(q));
+          if (!matchName && !matchRole && !matchDept && !matchBio && !matchLang && !matchAI) {
+            return false;
+          }
+        }
+
+        return true;
+      }).sort((a, b) => {
+        if (currentSort === 'cargo-desc') {
+          return b.personasACargoCount - a.personasACargoCount;
+        } else if (currentSort === 'name-asc') {
+          return a.name.localeCompare(b.name);
+        } else if (currentSort === 'name-desc') {
+          return b.name.localeCompare(a.name);
+        } else if (currentSort === 'rating-desc') {
+          return b.npsRating - a.npsRating;
+        }
+        return 0;
+      });
+    }
+
+    function renderCollaborators() {
+      const filtered = getFilteredStaff();
+      const resultsCountBadge = document.getElementById('resultsCountBadge');
+      resultsCountBadge.textContent = `${filtered.length} resultado${filtered.length === 1 ? '' : 's'}`;
+
+      const noResultsState = document.getElementById('noResultsState');
+      const gridContainer = document.getElementById('collaboratorsGrid');
+      const tableBody = document.getElementById('collaboratorsTableBody');
+
+      if (filtered.length === 0) {
+        noResultsState.classList.remove('hidden');
+        gridContainer.innerHTML = '';
+        tableBody.innerHTML = '';
+        return;
+      } else {
+        noResultsState.classList.add('hidden');
+      }
+
+      // Render Grid Cards
+      gridContainer.innerHTML = filtered.map(staff => {
+        const style = deptStyles[staff.department] || deptStyles.docentes;
+        const hasCharge = staff.personasACargoCount > 0;
+
+        return `
+          <div class="pastel-card rounded-3xl p-6 bg-white flex flex-col justify-between group relative overflow-hidden border border-slate-200/80">
+            <!-- Top Department Tag & Country -->
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-3 py-1 rounded-full text-[11px] font-bold border ${style.badgeBg} flex items-center gap-1.5">
+                  <i data-lucide="${style.icon}" class="w-3.5 h-3.5"></i>
+                  <span>${staff.departmentName}</span>
+                </span>
+                <span class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700">
+                  <span class="text-sm">${staff.countryFlag}</span>
+                  <span>${staff.country}</span>
+                </span>
+              </div>
+
+              <!-- Profile Info -->
+              <div class="flex items-start gap-4 mb-4">
+                <div class="relative w-16 h-16 shrink-0">
+                  <img src="${staff.avatar}" alt="${staff.name}" class="w-full h-full rounded-2xl object-cover border border-slate-200 shadow-xs group-hover:scale-105 transition-transform">
+                  <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white" title="Activo"></span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-extrabold text-base sm:text-lg text-slate-900 group-hover:text-purple-700 transition-colors truncate">
+                    ${staff.name}
+                  </h3>
+                  <p class="text-xs text-slate-500 font-semibold line-clamp-2 mt-0.5 leading-snug">
+                    ${staff.role}
+                  </p>
+                </div>
+              </div>
+
+              <!-- PERSONAS A CARGO HIGHLIGHT BADGE -->
+              <div class="mb-4">
+                ${hasCharge ? `
+                  <div class="p-2.5 rounded-xl bg-amber-50/90 border border-amber-200/70 text-amber-900 text-xs font-medium flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center font-bold text-xs">
+                        👥
+                      </div>
+                      <div>
+                        <span class="font-extrabold text-amber-950">${staff.personasACargoCount} personas a cargo</span>
+                        <div class="text-[10px] text-amber-800/80 truncate max-w-[170px] sm:max-w-[200px]">${staff.personasACargoDesc}</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900">Líder</span>
+                  </div>
+                ` : `
+                  <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/60 text-slate-600 text-xs font-medium flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-lg bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-xs">
+                        ⚡
+                      </div>
+                      <span class="text-xs font-semibold">Especialista Individual</span>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">Enfoque Pro</span>
+                  </div>
+                `}
+              </div>
+
+              <!-- Languages Mini Pills -->
+              <div class="mb-4">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Idiomas:</div>
+                <div class="flex flex-wrap gap-1.5">
+                  ${staff.languages.slice(0, 3).map(l => `
+                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[11px] font-semibold flex items-center gap-1">
+                      <span>${l.flag}</span>
+                      <span>${l.name}</span>
+                      <span class="text-[10px] text-slate-400 font-bold">${l.level.split(' ')[0]}</span>
+                    </span>
+                  `).join('')}
+                  ${staff.languages.length > 3 ? `<span class="text-[10px] font-bold text-slate-400 self-center">+${staff.languages.length - 3}</span>` : ''}
+                </div>
+              </div>
+
+              <!-- AI Stack Mini Pills -->
+              <div class="mb-5">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Herramientas IA:</div>
+                <div class="flex flex-wrap gap-1">
+                  ${staff.aiStack.slice(0, 3).map(tool => `
+                    <span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-semibold border border-purple-100">
+                      🤖 ${tool.name}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Content Creator Team External Link (If applicable) -->
+            ${staff.department === 'comunicaciones' ? `
+              <div class="mb-3 p-2 rounded-2xl bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200/80 flex items-center justify-between text-xs">
+                <span class="font-bold text-pink-900 text-[11px] flex items-center gap-1">
+                  <span>🎨 Hub Content Creator</span>
+                </span>
+                <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-extrabold text-[10px] inline-flex items-center gap-1 transition-all shadow-2xs">
+                  <span>Abrir en Vercel</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+              </div>
+            ` : ''}
+
+            <!-- Action Buttons: Go to Individual Dashboard -->
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+              <a href="#staff=${staff.id}" onclick="navigateToStaff('${staff.id}'); return false;" class="flex-1 py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-purple-200 group-hover:bg-purple-700">
+                <span>Ver Dashboard Completo</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+              <a href="https://wa.me/${staff.phone.replace(/[^0-9]/g, '')}?text=%C2%A1Hola%20${encodeURIComponent(staff.name)}!%20Te%20contacto%20desde%20el%20Staff%20Dashboard%20de%20Polyglot%20Map" target="_blank" class="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors" title="Contactar por WhatsApp">
+                <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+              </a>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+
+      // Render Table Rows
+      tableBody.innerHTML = filtered.map(staff => {
+        const style = deptStyles[staff.department] || deptStyles.docentes;
+        return `
+          <tr class="hover:bg-purple-50/30 transition-colors">
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-3">
+                <img src="${staff.avatar}" class="w-10 h-10 rounded-xl object-cover border border-slate-200" alt="${staff.name}">
+                <div>
+                  <div class="font-bold text-slate-900">${staff.name} ${staff.countryFlag}</div>
+                  <div class="text-xs text-slate-500">${staff.country}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded-md text-xs font-semibold ${style.badgeBg}">
+                  ${staff.departmentName}
+                </span>
+                ${staff.department === 'comunicaciones' ? `
+                  <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-pink-100 text-pink-800 hover:bg-pink-200 transition-colors inline-flex items-center gap-0.5" title="Abrir Dashboard en Vercel">
+                    <span>Vercel</span>
+                    <i data-lucide="external-link" class="w-2.5 h-2.5"></i>
+                  </a>
+                ` : ''}
+              </div>
+              <div class="text-xs text-slate-500 truncate max-w-[200px] mt-0.5">${staff.role}</div>
+            </td>
+            <td class="py-3 px-4 text-center">
+              ${staff.personasACargoCount > 0 ? `
+                <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 font-extrabold text-xs">
+                  👥 ${staff.personasACargoCount}
+                </span>
+              ` : `
+                <span class="text-xs text-slate-400 font-semibold">—</span>
+              `}
+            </td>
+            <td class="py-3 px-4">
+              <div class="text-xs font-medium text-slate-700">
+                ${staff.languages.map(l => `${l.flag} ${l.name}`).join(', ')}
+              </div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="text-xs text-purple-700 font-semibold">
+                ${staff.aiStack.slice(0, 2).map(t => t.name).join(' • ')}
+              </div>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <button onclick="navigateToStaff('${staff.id}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-all inline-flex items-center gap-1 shadow-2xs">
+                <span>Dashboard</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------
+    // CONTROLS & FILTER HANDLERS
+    // -------------------------------------------------------------
+    function setFilterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('#categoryPillContainer .cat-pill').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'cat-pill px-3 py-1.5 rounded-xl pastel-pill-active transition-all font-bold';
+        } else {
+          btn.className = 'cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all font-bold';
+        }
+      });
+      applyFilters();
+    }
+
+    function applyFilters() {
+      searchQuery = document.getElementById('searchInput').value;
+      currentLanguage = document.getElementById('languageSelect').value;
+      currentSort = document.getElementById('sortSelect').value;
+      onlyWithCharge = document.getElementById('onlyWithChargeCheckbox').checked;
+
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (searchQuery.trim() !== '') {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+
+      renderCollaborators();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      applyFilters();
+    }
+
+    function resetAllFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('languageSelect').value = 'all';
+      document.getElementById('sortSelect').value = 'cargo-desc';
+      document.getElementById('onlyWithChargeCheckbox').checked = false;
+      setFilterCategory('all');
+    }
+
+    // View Mode switching
+    function changeViewMode(mode) {
+      currentViewMode = mode;
+      const gridBtn = document.getElementById('viewModeGridBtn');
+      const tableBtn = document.getElementById('viewModeTableBtn');
+      const treeBtn = document.getElementById('viewModeTreeBtn');
+
+      const gridContainer = document.getElementById('collaboratorsGrid');
+      const tableContainer = document.getElementById('collaboratorsTableContainer');
+      const treeContainer = document.getElementById('organigrama-section');
+
+      // Reset classes
+      [gridBtn, tableBtn, treeBtn].forEach(b => {
+        b.className = 'px-3.5 py-2 rounded-xl text-slate-600 hover:text-purple-700 flex items-center gap-1.5 transition-all';
+      });
+
+      gridContainer.classList.add('hidden');
+      tableContainer.classList.add('hidden');
+      treeContainer.classList.add('hidden');
+
+      if (mode === 'grid') {
+        gridBtn.className = 'px-3.5 py-2 rounded-xl bg-purple-100 text-purple-800 font-bold flex items-center gap-1.5 transition-all';
+        gridContainer.classList.remove('hidden');
+      } else if (mode === 'table') {
+        tableBtn.className = 'px-3.5 py-2 rounded-xl bg-purple-100 text-purple-800 font-bold flex items-center gap-1.5 transition-all';
+        tableContainer.classList.remove('hidden');
+      } else if (mode === 'tree') {
+        treeBtn.className = 'px-3.5 py-2 rounded-xl bg-purple-100 text-purple-800 font-bold flex items-center gap-1.5 transition-all';
+        treeContainer.classList.remove('hidden');
+      }
+
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------
+    // NAVIGATION TO INDIVIDUAL DASHBOARD
+    // -------------------------------------------------------------
+    function navigateToStaff(staffId) {
+      window.location.hash = `#staff=${staffId}`;
+      showIndividualDashboard(staffId);
+    }
+
+    function showDirectoryView() {
+      currentStaffId = null;
+      document.getElementById('directoryViewContainer').classList.remove('hidden');
+      document.getElementById('individualStaffContainer').classList.add('hidden');
+      document.getElementById('navBtnDirectory').classList.add('text-purple-700', 'bg-white', 'shadow-xs', 'font-bold');
+
+      // Update URL hash if it was a staff member
+      if (window.location.hash.startsWith('#staff=')) {
+        history.pushState(null, null, '#directorio');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showIndividualDashboard(staffId) {
+      const staff = staffDatabase.find(s => s.id === staffId);
+      if (!staff) {
+        showDirectoryView();
+        return;
+      }
+
+      currentStaffId = staffId;
+      document.getElementById('directoryViewContainer').classList.add('hidden');
+      document.getElementById('individualStaffContainer').classList.remove('hidden');
+      document.getElementById('navBtnDirectory').classList.remove('text-purple-700', 'bg-white', 'shadow-xs');
+
+      // Update position indicator
+      const currentIndex = staffDatabase.findIndex(s => s.id === staffId);
+      document.getElementById('staffPositionIndicator').textContent = `${currentIndex + 1} / ${staffDatabase.length}`;
+
+      // Render individual staff view
+      renderStaffDashboard(staff);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateStaffPrev() {
+      const currentIndex = staffDatabase.findIndex(s => s.id === currentStaffId);
+      const prevIndex = (currentIndex - 1 + staffDatabase.length) % staffDatabase.length;
+      navigateToStaff(staffDatabase[prevIndex].id);
+    }
+
+    function navigateStaffNext() {
+      const currentIndex = staffDatabase.findIndex(s => s.id === currentStaffId);
+      const nextIndex = (currentIndex + 1) % staffDatabase.length;
+      navigateToStaff(staffDatabase[nextIndex].id);
+    }
+
+    // -------------------------------------------------------------
+    // RENDER INDIVIDUAL STAFF DASHBOARD
+    // -------------------------------------------------------------
+    function renderStaffDashboard(staff) {
+      const container = document.getElementById('staffDetailContent');
+      const style = deptStyles[staff.department] || deptStyles.docentes;
+      const hasCharge = staff.personasACargoCount > 0;
+
+      container.innerHTML = `
+        <div class="space-y-8">
+          
+          ${staff.department === 'comunicaciones' ? `
+          <!-- SPECIAL BANNER: CONTENT CREATOR VERCEL DASHBOARD LINK -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-pink-50 via-purple-50 to-pink-50 border-2 border-pink-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-pink-200 text-pink-800 flex items-center justify-center font-bold text-2xl shadow-2xs shrink-0">
+                🎨
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-0.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-pink-200 text-pink-900 text-[10px] font-extrabold uppercase tracking-wider">Dashboard Oficial del Equipo</span>
+                  <span class="text-xs text-pink-700 font-bold hidden sm:inline">team-content-creator.vercel.app</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 font-display">Creative Marketing Studio & Matriz Excel Hub</h3>
+                <p class="text-xs text-slate-600 mt-0.5">Espacio operativo con la Matriz Excel en vivo, pautas de videos 9:16, carpetas de Google Drive y sala Meet 24/7.</p>
+              </div>
+            </div>
+            <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-extrabold text-xs transition-all inline-flex items-center justify-center gap-2 shadow-md shadow-pink-200 shrink-0">
+              <span>Ir al Dashboard de Content Creators</span>
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+          </div>
+          ` : ''}
+
+          <!-- TOP PROFILE HEADER CARD -->
+          <div class="pastel-card rounded-3xl p-6 sm:p-10 bg-white border border-slate-200/80 relative overflow-hidden">
+            
+            <!-- Soft pastel background gradient pill -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-100/60 via-pink-100/40 to-transparent rounded-bl-full pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <!-- Avatar with Badge -->
+                <div class="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0">
+                  <img src="${staff.avatar}" alt="${staff.name}" class="w-full h-full rounded-3xl object-cover border-4 border-white shadow-md">
+                  <span class="absolute -bottom-1 -right-1 text-2xl" title="${staff.country}">${staff.countryFlag}</span>
+                </div>
+
+                <!-- Titles & Badges -->
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold border ${style.badgeBg} flex items-center gap-1.5">
+                      <i data-lucide="${style.icon}" class="w-3.5 h-3.5"></i>
+                      <span>${staff.departmentName}</span>
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                      ${staff.country}
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold flex items-center gap-1">
+                      <i data-lucide="star" class="w-3 h-3 text-amber-600 fill-amber-500"></i>
+                      <span>${staff.npsRating} NPS</span>
+                    </span>
+                  </div>
+
+                  <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
+                    ${staff.name}
+                  </h1>
+                  <p class="text-sm sm:text-base font-semibold text-purple-700 mt-1">
+                    ${staff.role}
+                  </p>
+                  <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mt-2 leading-relaxed">
+                    ${staff.bio}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Quick Contact CTA Buttons -->
+              <div class="flex flex-wrap sm:flex-col gap-2.5 w-full md:w-auto shrink-0 pt-2 md:pt-0">
+                <a href="https://wa.me/${staff.phone.replace(/[^0-9]/g, '')}?text=%C2%A1Hola%20${encodeURIComponent(staff.name)}!%20Te%20contacto%20desde%20tu%20dashboard%20de%20Polyglot%20Map" target="_blank" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-emerald-200">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  <span>WhatsApp Directo</span>
+                </a>
+                <a href="https://meet.google.com/zfa-arcz-gzc" target="_blank" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all border border-slate-200">
+                  <i data-lucide="video" class="w-4 h-4 text-purple-600"></i>
+                  <span>Sala Virtual Meet</span>
+                </a>
+                <a href="mailto:${staff.email}" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-purple-50 text-purple-700 border border-purple-200 font-bold text-xs transition-all">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                  <span>Enviar Correo</span>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- SPECIAL SECTION: PERSONAS A CARGO (THE USER REQUESTED THIS EXPLICITLY) -->
+          <div class="pastel-card rounded-3xl p-6 sm:p-8 bg-white border border-amber-200/60 shadow-xs">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-amber-100">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xl">
+                  👥
+                </div>
+                <div>
+                  <h2 class="text-xl font-extrabold text-slate-900 font-display flex items-center gap-2">
+                    <span>Gráfica y Directorio de Personas a Cargo</span>
+                    <span class="px-3 py-0.5 rounded-full bg-amber-200 text-amber-950 font-black text-xs">
+                      ${staff.personasACargoCount} ${hasCharge ? 'Asignados' : ''}
+                    </span>
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-500">
+                    ${staff.personasACargoDesc}
+                  </p>
+                </div>
+              </div>
+
+              ${hasCharge ? `
+                <span class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 inline-flex items-center gap-1.5 self-start">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Liderazgo Activo en Polyglot Map
+                </span>
+              ` : `
+                <span class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200 self-start">
+                  Especialista de Alto Impacto
+                </span>
+              `}
+            </div>
+
+            ${hasCharge ? `
+              <!-- Grid of People in Charge -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${staff.personasACargoList.map(person => `
+                  <div class="p-4 rounded-2xl bg-amber-50/40 border border-amber-200/60 hover:bg-amber-50 transition-all flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white text-slate-700 font-bold flex items-center justify-center text-lg border border-amber-200/80 shrink-0 shadow-2xs">
+                      ${person.flag}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-1">
+                        <h4 class="font-extrabold text-sm text-slate-900 truncate">${person.name}</h4>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-white text-amber-800 font-bold border border-amber-200/80">${person.tag}</span>
+                      </div>
+                      <p class="text-xs text-slate-600 mt-0.5">${person.role}</p>
+                      <div class="mt-2 flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span>Supervisado por ${staff.name.split(' ')[0]}</span>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : `
+              <div class="text-center py-6 px-4 rounded-2xl bg-slate-50 border border-slate-200/60">
+                <i data-lucide="sparkles" class="w-8 h-8 text-purple-400 mx-auto mb-2"></i>
+                <h4 class="text-sm font-bold text-slate-800">Rol Especialista Estratégico</h4>
+                <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">
+                  Este colaborador está enfocado al 100% en entregables técnicos y de alta especialización (análisis, copys, alianzas o traducción especializada) sin gestión de personas subordinadas.
+                </p>
+              </div>
+            `}
+
+          </div>
+
+          <!-- 4 BENTO KPI CARDS -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="pastel-card rounded-2xl p-5 bg-white border-l-4 border-l-purple-400">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">${staff.metrics.metric1.label}</span>
+              <span class="text-2xl font-black text-slate-900 font-display">${staff.metrics.metric1.val}</span>
+            </div>
+            <div class="pastel-card rounded-2xl p-5 bg-white border-l-4 border-l-emerald-400">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">${staff.metrics.metric2.label}</span>
+              <span class="text-2xl font-black text-slate-900 font-display">${staff.metrics.metric2.val}</span>
+            </div>
+            <div class="pastel-card rounded-2xl p-5 bg-white border-l-4 border-l-pink-400">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">${staff.metrics.metric3.label}</span>
+              <span class="text-2xl font-black text-slate-900 font-display">${staff.metrics.metric3.val}</span>
+            </div>
+            <div class="pastel-card rounded-2xl p-5 bg-white border-l-4 border-l-sky-400">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">${staff.metrics.metric4.label}</span>
+              <span class="text-2xl font-black text-slate-900 font-display">${staff.metrics.metric4.val}</span>
+            </div>
+          </div>
+
+          <!-- LANGUAGES & AI STACK (2 COLUMNS) -->
+          <div class="grid lg:grid-cols-12 gap-6">
+            
+            <!-- Col 1: Language Mastery (CEFR & Fluency Bars) -->
+            <div class="lg:col-span-6 pastel-card rounded-3xl p-6 sm:p-8 bg-white space-y-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="globe" class="w-5 h-5 text-emerald-600"></i>
+                    Dominio Lingüístico & Niveles CEFR
+                  </h3>
+                  <p class="text-xs text-slate-400">Fluidez validada por Polyglot Map</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
+                  ${staff.languages.length} Idiomas
+                </span>
+              </div>
+
+              <div class="space-y-4">
+                ${staff.languages.map(lang => `
+                  <div>
+                    <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+                      <span class="flex items-center gap-1.5 text-slate-800">
+                        <span class="text-base">${lang.flag}</span>
+                        <span>${lang.name}</span>
+                        <span class="text-purple-700 font-semibold">(${lang.level})</span>
+                      </span>
+                      <span class="text-slate-600">${lang.percent}%</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
+                      <div class="h-full rounded-full bg-gradient-to-r from-emerald-300 via-sky-300 to-purple-400 transition-all duration-1000" style="width: ${lang.percent}%"></div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Col 2: AI Stack & Tooling -->
+            <div class="lg:col-span-6 pastel-card rounded-3xl p-6 sm:p-8 bg-white space-y-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="bot" class="w-5 h-5 text-purple-600"></i>
+                    Stack de Inteligencia Artificial & Automatización
+                  </h3>
+                  <p class="text-xs text-slate-400">Herramientas que domina y enseña</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-purple-50 text-purple-800 text-xs font-bold border border-purple-200">
+                  ${staff.aiStack.length} Herramientas
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                ${staff.aiStack.map(tool => `
+                  <div class="p-3.5 rounded-2xl bg-purple-50/40 border border-purple-100/80 hover:bg-purple-50 transition-colors flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-purple-200/80 text-purple-800 flex items-center justify-center font-bold text-xs shrink-0">
+                      ⚡
+                    </div>
+                    <div>
+                      <h4 class="font-extrabold text-xs sm:text-sm text-slate-900">${tool.name}</h4>
+                      <p class="text-xs text-slate-600 mt-0.5 leading-snug">${tool.usage}</p>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SCHEDULE & AVAILABILITY -->
+          <div class="pastel-card rounded-3xl p-6 sm:p-8 bg-white space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <i data-lucide="calendar" class="w-5 h-5 text-pink-600"></i>
+                  Disponibilidad Semanal & Sesiones en Vivo
+                </h3>
+                <p class="text-xs text-slate-400">Horarios de coordinación, dailies o clases activas</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200">
+                🟢 Agenda Abierta
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+              ${staff.schedule.map(item => `
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                  <div class="font-bold text-xs text-purple-700 uppercase tracking-wider mb-1">${item.day}</div>
+                  <div class="text-xs text-slate-700 font-medium leading-relaxed">${item.slots}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- BOTTOM ACTION BAR -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200/70">
+            <button onclick="showDirectoryView()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all flex items-center gap-2">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              <span>Volver al Directorio de Colaboradores</span>
+            </button>
+
+            <div class="flex items-center gap-2">
+              <button onclick="copyCurrentStaffLink()" class="px-4 py-2.5 rounded-xl bg-purple-100 text-purple-800 hover:bg-purple-200 transition-all font-bold text-xs flex items-center gap-1.5">
+                <i data-lucide="share-2" class="w-4 h-4"></i>
+                <span>Compartir este Dashboard</span>
+              </button>
+              <a href="https://wa.me/${staff.phone.replace(/[^0-9]/g, '')}?text=%C2%A1Hola%20${encodeURIComponent(staff.name)}!%20Te%20contacto%20desde%20tu%20dashboard%20de%20Polyglot%20Map" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs transition-all shadow-md shadow-emerald-200 flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Agendar con ${staff.name.split(' ')[0]}</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      `;
+
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------
+    // UTILITIES: SHARE & TOAST & CONFETTI
+    // -------------------------------------------------------------
+    function copyCurrentStaffLink() {
+      const staff = staffDatabase.find(s => s.id === currentStaffId);
+      const url = `${window.location.origin}${window.location.pathname}#staff=${currentStaffId}`;
+      copyDirectLink(url, `Enlace al Dashboard de ${staff ? staff.name : 'Colaborador'}`);
+    }
+
+    function copyDirectLink(url, title) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast(`¡${title} copiado al portapapeles! 📋`);
+          triggerConfetti();
+        }).catch(() => {
+          prompt('Copia este enlace:', url);
+        });
+      } else {
+        prompt('Copia este enlace:', url);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = msg;
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 40,
+          spread: 60,
+          origin: { y: 0.85 },
+          colors: ['#8B5CF6', '#EC4899', '#38BDF8', '#10B981', '#FACC15']
+        });
+      }
+    }
+
+    // Initial render
+    renderCollaborators();
+  </script>
+
+</body>
+</html>
