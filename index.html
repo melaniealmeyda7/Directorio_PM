@@ -284,20 +284,28 @@
           <!-- Top Quick Filters Pills -->
           <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
             <span class="text-slate-500 font-semibold mr-1">Áreas Clave:</span>
-            <button onclick="setFilterCategory('docentes')" class="px-3 py-1.5 rounded-xl bg-emerald-100/80 text-emerald-800 font-bold border border-emerald-200 hover:bg-emerald-200 transition-all flex items-center gap-1.5">
-              <span>🎓 Docentes en Vivo</span>
-              <span class="w-4 h-4 rounded-full bg-emerald-200 text-emerald-900 text-[10px] flex items-center justify-center font-bold">5</span>
+            <button onclick="setFilterCategory('all')" class="px-3 py-1.5 rounded-xl bg-purple-100/80 text-purple-800 font-bold border border-purple-200 hover:bg-purple-200 transition-all flex items-center gap-1.5">
+              <span>👥 Todo el Directorio</span>
+              <span class="w-4 h-4 rounded-full bg-purple-200 text-purple-900 text-[10px] flex items-center justify-center font-bold">21</span>
+            </button>
+            <button onclick="setFilterCategory('practicantes')" class="px-3 py-1.5 rounded-xl bg-indigo-100/90 text-indigo-900 font-bold border border-indigo-200 hover:bg-indigo-200 transition-all flex items-center gap-1.5">
+              <span>👩‍🎓 Practicantes Oficiales</span>
+              <span class="w-4 h-4 rounded-full bg-indigo-200 text-indigo-950 text-[10px] flex items-center justify-center font-bold">7</span>
             </button>
             <button onclick="setFilterCategory('comunicaciones')" class="px-3 py-1.5 rounded-xl bg-pink-100/80 text-pink-800 font-bold border border-pink-200 hover:bg-pink-200 transition-all flex items-center gap-1.5">
-              <span>📣 Comunicaciones & Contenido</span>
+              <span>📣 Content Creators</span>
               <span class="w-4 h-4 rounded-full bg-pink-200 text-pink-900 text-[10px] flex items-center justify-center font-bold">5</span>
             </button>
             <button onclick="setFilterCategory('traductores')" class="px-3 py-1.5 rounded-xl bg-sky-100/80 text-sky-800 font-bold border border-sky-200 hover:bg-sky-200 transition-all flex items-center gap-1.5">
               <span>🌐 Traductores & Localización</span>
-              <span class="w-4 h-4 rounded-full bg-sky-200 text-sky-900 text-[10px] flex items-center justify-center font-bold">3</span>
+              <span class="w-4 h-4 rounded-full bg-sky-200 text-sky-900 text-[10px] flex items-center justify-center font-bold">10</span>
+            </button>
+            <button onclick="setFilterCategory('docentes')" class="px-3 py-1.5 rounded-xl bg-emerald-100/80 text-emerald-800 font-bold border border-emerald-200 hover:bg-emerald-200 transition-all flex items-center gap-1.5">
+              <span>🎓 Docentes en Vivo</span>
+              <span class="w-4 h-4 rounded-full bg-emerald-200 text-emerald-900 text-[10px] flex items-center justify-center font-bold">4</span>
             </button>
             <button onclick="setFilterCategory('empleabilidad')" class="px-3 py-1.5 rounded-xl bg-purple-100/80 text-purple-800 font-bold border border-purple-200 hover:bg-purple-200 transition-all flex items-center gap-1.5">
-              <span>🚀 Empleabilidad & Liderazgo IA</span>
+              <span>🚀 Liderazgo & IA</span>
               <span class="w-4 h-4 rounded-full bg-purple-200 text-purple-900 text-[10px] flex items-center justify-center font-bold">2</span>
             </button>
           </div>
@@ -384,7 +392,7 @@
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                   <span>4 Idiomas en Vivo</span>
                 </span>
-                <span class="text-xs font-bold text-slate-400">5 Docentes</span>
+                <span class="text-xs font-bold text-slate-400">4 Docentes</span>
               </div>
               <div class="flex items-center gap-2.5 mb-2">
                 <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg shrink-0">
@@ -408,7 +416,7 @@
               </div>
             </div>
             <button onclick="setFilterCategory('docentes'); document.getElementById('directorio').scrollIntoView({behavior:'smooth'});" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-2 shadow-sm shadow-emerald-200">
-              <span>Ver Dashboard de Docentes (5)</span>
+              <span>Ver Dashboard de Docentes (4)</span>
               <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
             </button>
           </div>
@@ -422,7 +430,7 @@
                   <span class="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse"></span>
                   <span>En Vivo en Vercel</span>
                 </span>
-                <span class="text-xs font-bold text-slate-400">3 Traductores</span>
+                <span class="text-xs font-extrabold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-lg border border-indigo-200">7 Practicantes + 3 Leads</span>
               </div>
               <div class="flex items-center gap-2.5 mb-2">
                 <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-lg shrink-0">
@@ -430,18 +438,22 @@
                 </div>
                 <div>
                   <h3 class="font-extrabold text-sm text-slate-900 group-hover:text-sky-700 transition-colors">
-                    Global Translators Studio & Hub ✨
+                    Global Translators Studio & Practicantes ✨
                   </h3>
-                  <div class="text-[11px] text-sky-700 font-semibold">Localización con IA & CAT Tools</div>
+                  <div class="text-[11px] text-sky-700 font-semibold">Proyecto "San Mateo" (45,000+ palabras)</div>
                 </div>
               </div>
               <p class="text-xs text-slate-600 mt-2 mb-3 leading-relaxed">
-                Post-edición neuronal con DeepL Pro API, subtitulaje sincronizado con Whisper Large-v3, memorias de traducción y glosarios ISO.
+                Gestión operativa de las 7 practicantes de traducción (6 UNIFÉ • 1 UPC), repositorio de CVs oficiales, CAT tools (memoQ, Trados, Subtitle Edit) y control de calidad.
               </p>
               <div class="text-[10px] text-slate-500 font-medium mb-4 flex flex-wrap gap-1">
-                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Lucas Silva (Lead)</span>
-                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Sofía (Jurídico)</span>
-                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Marco (Técnico)</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Maria Fernanda</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Celine</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Sophia</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Landys</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Fatima</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Arihana</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 font-semibold">Gaylim (UPC)</span>
               </div>
             </div>
             <a href="https://studio-global-translators.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-2 shadow-sm shadow-sky-200">
@@ -505,9 +517,9 @@
               <i data-lucide="users" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display kpi-num-1">14 Integrantes</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display kpi-num-1">21 Integrantes</div>
           <div class="text-xs text-purple-700 font-semibold flex items-center gap-1">
-            <span>4 Áreas estratégicas activas</span>
+            <span>14 Senior + 7 Practicantes</span>
           </div>
         </div>
 
@@ -519,7 +531,7 @@
               <i data-lucide="git-branch" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display kpi-num-2">169 Personas</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 font-display kpi-num-2">173 Personas</div>
           <div class="text-xs text-amber-700 font-semibold flex items-center gap-1">
             <span>Alumnos, practicantes y equipos</span>
           </div>
@@ -586,7 +598,7 @@
                 <p class="text-xs text-slate-400">Total de alumnos asignados, practicantes y equipos directos</p>
               </div>
               <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold border border-amber-200">
-                169 Asignados
+                173 Asignados
               </span>
             </div>
             
@@ -753,16 +765,19 @@
             
             <div class="flex flex-wrap items-center gap-1.5 text-xs font-bold" id="categoryPillContainer">
               <button onclick="setFilterCategory('all')" data-cat="all" class="cat-pill px-3 py-1.5 rounded-xl pastel-pill-active transition-all">
-                Todos (14)
+                Todos (21)
               </button>
-              <button onclick="setFilterCategory('docentes')" data-cat="docentes" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-all">
-                🎓 Docentes (5)
+              <button onclick="setFilterCategory('practicantes')" data-cat="practicantes" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-indigo-700 hover:bg-indigo-50 transition-all">
+                👩‍🎓 Practicantes Oficiales (7)
               </button>
               <button onclick="setFilterCategory('comunicaciones')" data-cat="comunicaciones" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-pink-700 hover:bg-pink-50 transition-all">
-                📣 Comunicaciones (5)
+                📣 Content Creators (5)
               </button>
               <button onclick="setFilterCategory('traductores')" data-cat="traductores" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-sky-700 hover:bg-sky-50 transition-all">
-                🌐 Traductores (3)
+                🌐 Traductores & Localización (10)
+              </button>
+              <button onclick="setFilterCategory('docentes')" data-cat="docentes" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-all">
+                🎓 Docentes (4)
               </button>
               <button onclick="setFilterCategory('empleabilidad')" data-cat="empleabilidad" class="cat-pill px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all">
                 🚀 Empleabilidad & IA (2)
@@ -924,24 +939,79 @@
                     <div class="font-extrabold text-sm text-slate-900 group-hover:text-sky-700">Lucas Silva 🇧🇷</div>
                     <div class="text-[11px] font-semibold text-sky-700">Lead Translator & Prompt Eng</div>
                     <span class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
-                      3 traductores junior a cargo
+                      7 practicantes San Mateo a cargo
                     </span>
                     <a href="https://studio-global-translators.vercel.app/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="mt-2 inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-[10px] font-bold transition-all shadow-2xs">
-                      <span>Dashboard Vercel</span>
+                      <span>Studio Vercel</span>
                       <i data-lucide="external-link" class="w-2.5 h-2.5"></i>
                     </a>
                   </div>
 
-                  <!-- Sub-nodes Traductores -->
+                  <!-- Sub-nodes Traductores & Practicantes -->
                   <div class="w-0.5 h-4 bg-sky-200 my-1"></div>
-                  <div class="w-full space-y-2 text-xs">
-                    <div onclick="navigateToStaff('sofia-valenzuela')" class="cursor-pointer p-2 rounded-xl bg-white border border-sky-200 text-slate-700 hover:bg-sky-50 flex items-center justify-between">
+                  <div class="w-full space-y-1.5 text-[11px]">
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-1">Especialistas Senior</div>
+                    <div onclick="navigateToStaff('sofia-valenzuela')" class="cursor-pointer p-1.5 rounded-xl bg-white border border-sky-200 text-slate-700 hover:bg-sky-50 flex items-center justify-between">
                       <span class="font-semibold">Sofía (Jurídico) 🇵🇪</span>
-                      <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">2 a cargo</span>
+                      <span class="text-[9px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md font-bold">2 a cargo</span>
                     </div>
-                    <div onclick="navigateToStaff('marco-bellini')" class="cursor-pointer p-2 rounded-xl bg-white border border-sky-200 text-slate-700 hover:bg-sky-50 flex items-center justify-between">
+                    <div onclick="navigateToStaff('marco-bellini')" class="cursor-pointer p-1.5 rounded-xl bg-white border border-sky-200 text-slate-700 hover:bg-sky-50 flex items-center justify-between">
                       <span class="font-semibold">Marco (Técnico) 🇮🇹</span>
-                      <span class="text-[10px] text-slate-400">Especialista</span>
+                      <span class="text-[9px] text-slate-400">Senior QA</span>
+                    </div>
+                    
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 px-1 pt-1.5 flex items-center justify-between">
+                      <span>👩‍🎓 7 Practicantes San Mateo</span>
+                      <span class="text-[9px] font-mono bg-indigo-100 text-indigo-900 px-1.5 rounded">6 UNIFÉ · 1 UPC</span>
+                    </div>
+                    <div onclick="navigateToStaff('maria-olivares')" class="cursor-pointer p-1.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-slate-800 hover:bg-indigo-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p1.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">M. Fernanda Olivares</span>
+                      </div>
+                      <span class="text-[9px] font-semibold text-indigo-700">Fase 1</span>
+                    </div>
+                    <div onclick="navigateToStaff('landys-gonzales')" class="cursor-pointer p-1.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-slate-800 hover:bg-indigo-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p4.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">Landys Brunella</span>
+                      </div>
+                      <span class="text-[9px] font-semibold text-indigo-700">Fase 2</span>
+                    </div>
+                    <div onclick="navigateToStaff('sophia-cabrera')" class="cursor-pointer p-1.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-slate-800 hover:bg-indigo-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p3.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">Sophia Cabrera</span>
+                      </div>
+                      <span class="text-[9px] font-semibold text-indigo-700">Fase 3</span>
+                    </div>
+                    <div onclick="navigateToStaff('celine-bautista')" class="cursor-pointer p-1.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-slate-800 hover:bg-indigo-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p2.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">Celine Bautista</span>
+                      </div>
+                      <span class="text-[9px] font-semibold text-indigo-700">Fase 4</span>
+                    </div>
+                    <div onclick="navigateToStaff('fatima-gallegos')" class="cursor-pointer p-1.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-slate-800 hover:bg-indigo-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p5.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">Fatima Gallegos</span>
+                      </div>
+                      <span class="text-[9px] font-semibold text-indigo-700">Fase 5</span>
+                    </div>
+                    <div onclick="navigateToStaff('arihana-altamirano')" class="cursor-pointer p-1.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-slate-800 hover:bg-indigo-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p6.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">Arihana Altamirano</span>
+                      </div>
+                      <span class="text-[9px] font-semibold text-indigo-700">Fase 6</span>
+                    </div>
+                    <div onclick="navigateToStaff('gaylim-gonzales')" class="cursor-pointer p-1.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-slate-800 hover:bg-emerald-100 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <img src="assets/avatars/avatar_p7.png" class="w-5 h-5 rounded-full object-cover">
+                        <span class="font-bold truncate max-w-[130px]">Gaylim Gonzales</span>
+                      </div>
+                      <span class="text-[9px] font-bold text-emerald-800">UPC memoQ</span>
                     </div>
                   </div>
                 </div>
@@ -1082,7 +1152,7 @@
   <!-- ========================================== -->
   <script>
     // -------------------------------------------------------------
-    // DATASET: Polyglot Map Staff Members
+    // DATASET: Polyglot Map Staff Members & Practicantes Oficiales
     // -------------------------------------------------------------
     const staffDatabase = [
       {
@@ -1094,15 +1164,16 @@
         country: "Perú",
         countryFlag: "🇵🇪",
         avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-        bio: "Estratega global y fundadora de Polyglot Map. Especialista en inserción laboral internacional de perfiles multilingües mediante automatización con IA y optimización de perfiles de alto valor (ATS, LinkedIn y Negociación Remota).",
-        personasACargoCount: 12,
-        personasACargoDesc: "Lidera 4 coordinadores de área y 8 coachees en aceleración ejecutiva.",
+        bio: "Estratega global y fundadora de Polyglot Map. Especialista en inserción laboral internacional de perfiles multilingües mediante automatización con IA y optimización de perfiles de alto valor (ATS, LinkedIn y Negociación Remota). Dirige las sesiones interactivas de Job Coaching Grupal de los miércoles para las practicantes y talentos de Polyglot Map.",
+        personasACargoCount: 19,
+        personasACargoDesc: "Lidera 4 coordinadores de área, 8 profesionales en aceleración ejecutiva y al equipo de 7 practicantes en su ruta formativa.",
         personasACargoList: [
           { name: "Adriana Chávez", role: "Coordinadora Creativa Lead", flag: "🇵🇪", tag: "Comunicaciones" },
           { name: "Prof. Jhonatan Vega", role: "Coordinador Docente de Idiomas", flag: "🇵🇪", tag: "Docentes" },
           { name: "Lucas Silva", role: "Lead de Traducción & Localización", flag: "🇧🇷", tag: "Traductores" },
           { name: "Diego Morales", role: "Lead Mentor de IA para Empleabilidad", flag: "🇲🇽", tag: "IA & Prompts" },
-          { name: "Grupo Mentoría Ejecutiva 2026", role: "8 Profesionales en Transición Global", flag: "🌎", tag: "Job Coaching" }
+          { name: "7 Practicantes de Traducción", role: "Programa Oficial San Mateo (6 UNIFÉ • 1 UPC)", flag: "🇵🇪", tag: "Job Coaching" },
+          { name: "Grupo Mentoría Ejecutiva 2026", role: "8 Profesionales en Transición Global", flag: "🌎", tag: "Aceleración" }
         ],
         languages: [
           { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
@@ -1118,17 +1189,17 @@
           { name: "Midjourney v6", usage: "Dirección de arte y conceptualización de marca" }
         ],
         metrics: {
-          metric1: { label: "Personas a Cargo", val: "12 Asignados" },
-          metric2: { label: "Alumnos Colocados en Remoto", val: "140+ Alumnos" },
-          metric3: { label: "Tasa Satisfacción NPS", val: "99.2%" },
-          metric4: { label: "Horas de Mentoría", val: "320+ hrs" }
+          metric1: { label: "Personas a Cargo", val: "19 Asignados" },
+          metric2: { label: "Alumnos Colocados Remoto", val: "140+ Alumnos" },
+          metric3: { label: "Tasa Satisfacción NPS", val: "99.4%" },
+          metric4: { label: "Horas de Mentoría", val: "380+ hrs" }
         },
         schedule: [
           { day: "Lunes", slots: "10:00 - 12:00 (Daily) | 16:00 - 19:00 (Job Coaching Grupal I)" },
           { day: "Martes", slots: "15:00 - 18:00 (Optimización LinkedIn & 1-on-1s)" },
-          { day: "Miércoles", slots: "10:00 - 12:00 (Revisión Estratégica) | 17:00 - 19:30 (Job Coaching II)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal Practicantes San Mateo)" },
           { day: "Jueves", slots: "16:00 - 19:00 (Simulaciones de Entrevistas Globales)" },
-          { day: "Viernes", slots: "09:30 - 12:00 (Sincronización con Coordinadores)" }
+          { day: "Viernes", slots: "09:30 - 12:00 (Sincronización con Coordinadores de Área)" }
         ],
         email: "melanie@polyglotmap.com",
         phone: "+51908934514",
@@ -1142,15 +1213,17 @@
         departmentName: "Comunicaciones",
         country: "Perú",
         countryFlag: "🇵🇪",
+        university: "Universidad Peruana de Ciencias Aplicadas (UPC)",
+        semester: "10mo ciclo, 2021-2026 | Comunicación Audiovisual",
         avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
-        bio: "Coordinadora general de estrategia visual y pauta creativa. Supervisa la Matriz Excel de contenidos, el flujo de grabación de videos 9:16, y el gatekeeper técnico obligatorio de piezas antes de salir a difusión.",
+        bio: "Coordinadora Creativa Lead. Asigna dinámicamente en la Matriz Excel / Sheets las piezas para que todo el equipo avance en simultáneo. Pauta a Daniela los temas y guiones de los 4 videos cortos semanales, actúa como gatekeeper técnico obligatorio (aprobación del 100% de piezas antes de salir a redes) y gestiona el Banco DAM.",
         personasACargoCount: 4,
-        personasACargoDesc: "Lidera a 4 creativas oficiales del equipo de marketing y contenidos.",
+        personasACargoDesc: "Lidera y pauta a 4 creativas oficiales del equipo de marketing y contenidos.",
         personasACargoList: [
-          { name: "Scarlet", role: "Video Producer & Identidad Visual", flag: "🇪🇸", tag: "Edición & Copys" },
-          { name: "Daniela", role: "Content Creator & Sales Analytics", flag: "🇨🇷", tag: "Cámara & Métricas" },
-          { name: "Alison", role: "Content Strategist & Alianzas B2B", flag: "🇵🇪", tag: "Tendencias IA" },
-          { name: "Britani", role: "Community Lead & WhatsApp", flag: "🇵🇪", tag: "Comunidad" }
+          { name: "Scarlet Rodríguez", role: "Video Producer & Identidad Visual", flag: "🇪🇸", tag: "Edición 9:16" },
+          { name: "Daniela Navarro", role: "Content Creator & Sales Analytics", flag: "🇨🇷", tag: "Cámara & Métricas" },
+          { name: "Alison Páucar", role: "Content Strategist & Alianzas B2B", flag: "🇵🇪", tag: "Tendencias IA" },
+          { name: "Britani Quispe", role: "Community Lead & WhatsApp", flag: "🇵🇪", tag: "Comunidad" }
         ],
         languages: [
           { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
@@ -1158,28 +1231,543 @@
           { name: "Portugués", level: "Intermedio (B1)", percent: 65, flag: "🇧🇷" }
         ],
         aiStack: [
+          { name: "Premiere Pro & After Effects", usage: "Dirección audiovisual y cortes maestros" },
           { name: "Midjourney v6", usage: "Generación de fondos holográficos y artes high-tech" },
           { name: "ChatGPT-4o", usage: "Pautas de contenido y revisión de copys persuasivos" },
           { name: "CapCut Pro AI", usage: "Aprobación y sugerencias de subtítulos animados 9:16" },
           { name: "Canva Magic Studio", usage: "Plantillas rápidas para historias y anuncios" }
         ],
         metrics: {
-          metric1: { label: "Personas a Cargo", val: "4 Creativas" },
+          metric1: { label: "Creativas a Cargo", val: "4 Oficiales" },
           metric2: { label: "Piezas Aprobadas / Mes", val: "64+ Artes" },
-          metric3: { label: "Cumplimiento de Matriz", val: "98.5%" },
+          metric3: { label: "Cumplimiento Matriz", val: "100% Sheets" },
           metric4: { label: "Alcance Audiovisual", val: "1.2M Vistas" }
         },
         schedule: [
           { day: "Lunes", slots: "09:00 - 11:30 (Pautas semanales de video con Daniela y Scarlet)" },
           { day: "Martes", slots: "14:00 - 17:00 (Revisión de artes en Matriz Excel & DAM)" },
           { day: "Miércoles", slots: "10:00 - 12:00 (Dailies de producción en Google Meet)" },
-          { day: "Jueves", slots: "15:00 - 18:00 (Aprobación final de los 4 videos cortos)" },
+          { day: "Jueves", slots: "15:00 - 18:00 (Aprobación técnica final de los 4 videos cortos)" },
           { day: "Viernes", slots: "10:00 - 13:00 (Revisión de analítica con Alison y Daniela)" }
         ],
         email: "adriana.chavez@polyglotmap.com",
         phone: "+51908934514",
         npsRating: 4.95
       },
+      {
+        id: "alison-paucar",
+        name: "Alison Páucar",
+        role: "Content Strategist & Alianzas B2B en IA",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Especialista en Content Strategy & Data Analytics",
+        semester: "Gestión 2026 | Propuestas Comerciales B2B",
+        avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+        bio: "Content Strategist de Polyglot Map. Investiga tendencias virales de IA y propone ideas de contenido. Genera 4 piezas gráficas semanales sobre ofertas laborales y tendencias para WhatsApp y redes. Elabora propuestas comerciales B2B y alianzas estratégicas, realizando la gestión mensual en conjunto con Scarlet y Daniela.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Especialista clave en investigación de tendencias salariales en USD y alianzas corporativas.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 89, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio Alto (B2)", percent: 75, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "Google Trends & TikTok Insights", usage: "Detección de temas virales sobre IA y empleo" },
+          { name: "Perplexity AI", usage: "Investigación de vacantes remotas y tendencias salariales" },
+          { name: "Claude 3.5 Sonnet", usage: "Redacción de propuestas comerciales B2B" },
+          { name: "Canva Pro", usage: "Diseño de 4 piezas gráficas semanales para WhatsApp y feed" }
+        ],
+        metrics: {
+          metric1: { label: "Piezas Semanales", val: "4 Gráficas" },
+          metric2: { label: "Propuestas B2B", val: "12 Enviadas" },
+          metric3: { label: "Enfoque", val: "Tendencias IA & USD" },
+          metric4: { label: "Satisfacción Equipo", val: "4.95 / 5.0" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:30 - 16:30 (Investigación, Tendencias & Contenidos B2B)" },
+          { day: "Viernes", slots: "10:00 - 12:00 (Sincronización mensual con Scarlet y Daniela)" }
+        ],
+        email: "alison@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.95
+      },
+      {
+        id: "daniela-navarro",
+        name: "Daniela Navarro",
+        role: "Content Creator & Content Analytic en Ventas",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Costa Rica",
+        countryFlag: "🇨🇷",
+        university: "UISIL (Costa Rica, 2022-2026)",
+        semester: "Técnico en Marketing Digital & Lic. Enseñanza del Español",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+        bio: "Creadora de contenido frente a cámara y analista de métricas comerciales. Crea 4 videos semanales cortos sobre las pautas que le indique Adriana, analiza métricas de consultas y ventas trabajando en conjunto con Adriana y Alison, diseña piezas asignadas en la Matriz Sheets y lidera la subida oficial y distribución a WhatsApp.",
+        personasACargoCount: 1,
+        personasACargoDesc: "A cargo de un asistente de tracking de datos y etiquetado de leads comerciales.",
+        personasACargoList: [
+          { name: "Asistente de Métricas", role: "Etiquetado UTM y conversiones WhatsApp", flag: "🇨🇷", tag: "Analytics" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇨🇷" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 85, flag: "🇬🇧" },
+          { name: "Italiano", level: "Básico Inicial (A2)", percent: 50, flag: "🇮🇹" }
+        ],
+        aiStack: [
+          { name: "Meta Business Suite & WhatsApp Business", usage: "Distribución de contenido y seguimiento de ventas" },
+          { name: "ChatGPT-4o & Gemini", usage: "Teleprompter dinámico y preparación de ganchos verbales" },
+          { name: "CapCut", usage: "Pre-edición rápida de videos cortos 9:16" },
+          { name: "Canva", usage: "Diseño de artes asignados en Matriz" }
+        ],
+        metrics: {
+          metric1: { label: "Videos / Semana", val: "4 Videos Cortos" },
+          metric2: { label: "Leads Calificados / Mes", val: "480+ Leads" },
+          metric3: { label: "Conversión a Chat", val: "18.4%" },
+          metric4: { label: "País Residencia", val: "Costa Rica 🇨🇷" }
+        },
+        schedule: [
+          { day: "Lunes y Miércoles", slots: "14:00 - 18:00 (Jornada de grabación de los 4 videos cortos)" },
+          { day: "Martes y Jueves", slots: "10:00 - 13:00 (Reportes de analítica con Adriana y Alison)" },
+          { day: "Viernes", slots: "11:00 - 13:00 (Subida oficial a WhatsApp y distribución)" }
+        ],
+        email: "daniela@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.93
+      },
+      {
+        id: "scarlet-rodriguez",
+        name: "Scarlet Rodríguez",
+        role: "Video Producer, Copywriter & Identidad Visual",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "España",
+        countryFlag: "🇪🇸",
+        university: "U. Europea de Madrid & UPC",
+        semester: "Doble Grado en Comunicación Audiovisual y Publicidad",
+        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+        bio: "Video Producer y Copywriter persuasiva en España. Edita profesionalmente los 4 videos cortos creados por Daniela (post-producción, dinamismo, subtítulos, efectos 9:16). Redacta el copywriting persuasivo (ganchos, narrativa y CTAs) de todas las piezas y custodia la identidad visual y coherencia gráfica de Polyglot Map.",
+        personasACargoCount: 2,
+        personasACargoDesc: "Supervisa a 2 asistentes en montaje dinámico 9:16 y banco sonoro.",
+        personasACargoList: [
+          { name: "Editor Audiovisual Jr.", role: "Cortes de retención y subtítulos 9:16", flag: "🇪🇸", tag: "Edición" },
+          { name: "Asistente de Hooks & Guiones", role: "Investigación de audios virales", flag: "🇪🇸", tag: "Copywriting" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Avanzado Británico (C1)", percent: 92, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio (B1)", percent: 65, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Premiere Pro AI & DaVinci Resolve", usage: "Montaje con cortes ágiles, subtítulos y dinamismo 9:16" },
+          { name: "CapCut Pro AI", usage: "Animaciones y tipografías cinemáticas para TikTok / Reels" },
+          { name: "Claude 3.5 Sonnet", usage: "Copywriting persuasivo con fórmulas PAS / AIDA" },
+          { name: "Illustrator & Photoshop", usage: "Manual de estilo e identidad visual oficial" }
+        ],
+        metrics: {
+          metric1: { label: "Videos Editados / Mes", val: "16 Videos 9:16" },
+          metric2: { label: "Aprobación al 1er Corte", val: "95%" },
+          metric3: { label: "Retención Promedio", val: "68% en 3s" },
+          metric4: { label: "País Residencia", val: "España 🇪🇸" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:00 - 15:00 (Hora España / Edición y post-producción)" },
+          { day: "Jueves", slots: "16:00 (Sincronización de entrega con Adriana Chávez)" }
+        ],
+        email: "scarlet@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.96
+      },
+      {
+        id: "britani-quispe",
+        name: "Britani Quispe",
+        role: "Content Creator & WhatsApp Community Lead",
+        department: "comunicaciones",
+        departmentName: "Comunicaciones",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Privada del Norte (UPN)",
+        semester: "8vo ciclo en curso | Comunicaciones Audiovisuales en Medios Digitales",
+        avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+        bio: "Content Creator y dinamizadora de la comunidad oficial de WhatsApp. Diseña piezas gráficas asignadas por Adriana en la Matriz Excel / Sheets (post, carrusel y anuncio para campaña) e interactúa y dinamiza a diario con la comunidad de WhatsApp para maximizar el engagement, resolver dudas y captar alumnos bilingües.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Especialista clave en diseño de piezas publicitarias e interacción comunitaria diaria en WhatsApp.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Intermedio Alto (B2)", percent: 76, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio (B1)", percent: 62, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "Canva Avanzado & Magic Studio", usage: "Diseño ágil de post, carruseles y anuncios de campaña" },
+          { name: "WhatsApp Business & ManyChat", usage: "Dinamización comunitaria y atención de postulantes" },
+          { name: "ChatGPT-4o", usage: "Redacción de retos interactivos y trivias lingüísticas" },
+          { name: "CapCut & Premiere básico", usage: "Piezas animadas y stickers para la comunidad" }
+        ],
+        metrics: {
+          metric1: { label: "Piezas Gráficas / Mes", val: "16 Artes" },
+          metric2: { label: "Mensajes Atendidos", val: "2,800+ chats" },
+          metric3: { label: "Tiempo de Respuesta", val: "< 4 minutos" },
+          metric4: { label: "Participación en Retos", val: "88% Activa" }
+        },
+        schedule: [
+          { day: "Lunes a Sábado", slots: "Turnos diarios de interacción comunitaria y atención en WhatsApp" },
+          { day: "Martes y Jueves", slots: "15:00 - 18:00 (Diseño de piezas asignadas en Matriz Sheets)" }
+        ],
+        email: "britani@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.95
+      },
+      {
+        id: "lucas-silva",
+        name: "Lucas Silva",
+        role: "Lead Translator & Prompt Engineer en Localización",
+        department: "traductores",
+        departmentName: "Traductores & Localización",
+        country: "Brasil",
+        countryFlag: "🇧🇷",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        bio: "Traductor senior y líder de localización con IA. Coordina el flujo de trabajo de las 7 practicantes de traducción (6 UNIFÉ • 1 UPC) en el proyecto 'Preservando Historias – San Mateo' (45,000+ palabras), implementando herramientas CAT (memoQ, Trados, Phrase), memorias compartidas y post-edición con DeepL Pro API.",
+        personasACargoCount: 7,
+        personasACargoDesc: "Lidera la coordinación técnica y QA lingüístico de las 7 practicantes del proyecto San Mateo.",
+        personasACargoList: [
+          { name: "Maria Fernanda Olivares", role: "Practicante EN/PT/ES · UNIFÉ", flag: "🇵🇪", tag: "Fase 1" },
+          { name: "Landys Brunella Gonzales", role: "Practicante EN/FR/ES · UNIFÉ", flag: "🇵🇪", tag: "Fase 2" },
+          { name: "Sophia Camila Cabrera", role: "Practicante EN/FR/ES · UNIFÉ", flag: "🇵🇪", tag: "Fase 3" },
+          { name: "Celine Lorena Bautista", role: "Practicante EN/PT/ES · UNIFÉ", flag: "🇵🇪", tag: "Fase 4" },
+          { name: "Fatima Valentina Gallegos", role: "Practicante EN/FR/ES · UNIFÉ", flag: "🇵🇪", tag: "Fase 5" },
+          { name: "Arihana Jelena Altamirano", role: "Practicante EN/FR/ES · UNIFÉ", flag: "🇵🇪", tag: "Fase 6" },
+          { name: "Gaylim Gonzales Ayala", role: "Practicante ES/EN · UPC", flag: "🇵🇪", tag: "memoQ QA" }
+        ],
+        languages: [
+          { name: "Portugués", level: "Nativo (C2)", percent: 100, flag: "🇧🇷" },
+          { name: "Español", level: "Bilingüe (C2)", percent: 95, flag: "🇪🇸" },
+          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 92, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio (B1)", percent: 65, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "memoQ & Trados Studio", usage: "Gestión de proyectos, memorias y glosarios del proyecto San Mateo" },
+          { name: "DeepL Pro API", usage: "Pre-traducción neuronal y asistencia terminológica" },
+          { name: "Claude 3.5 Sonnet", usage: "Adaptación cultural, tono testimonial y post-edición" },
+          { name: "Subtitle Edit", usage: "Control de calidad en subtítulos audiovisuales" }
+        ],
+        metrics: {
+          metric1: { label: "Practicantes a Cargo", val: "7 Asignadas" },
+          metric2: { label: "Proyecto San Mateo", val: "45k+ palabras" },
+          metric3: { label: "Reducción Tiempo IA", val: "-65% tiempo" },
+          metric4: { label: "Precisión Terminológica", val: "99.4%" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "08:30 - 17:30 (Jornada de localización & QA del proyecto San Mateo)" },
+          { day: "Miércoles", slots: "11:00 - 12:30 (Sincronización con gestoras y practicantes en Meet)" }
+        ],
+        email: "lucas.silva@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.96
+      },
+
+      // -----------------------------------------------------------
+      // 7 PRACTICANTES OFICIALES (GLOBAL TRANSLATORS STUDIO)
+      // -----------------------------------------------------------
+      {
+        id: "maria-olivares",
+        name: "Maria Fernanda Olivares Ramón",
+        role: "Practicante de Traducción e Interpretación (EN / PT / ES)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+        semester: "2022 - Actual | 9no - 10mo Ciclo",
+        avatar: "assets/avatars/avatar_p1.png",
+        cvUrl: "cvs/CV_Maria_Fernanda_Olivares.pdf",
+        bio: "Practicante de Traducción e Interpretación en la UNIFÉ con sólido dominio del inglés (C1) y portugués (B2). Comprometida con la precisión terminológica y la fidelidad cultural en proyectos de archivo, interpretación y subtitulaje para el proyecto 'Preservando Historias - San Mateo'.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada a la Fase 1 del Proyecto San Mateo (Análisis Lingüístico & Co-traducción).",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Avanzado (C1)", percent: 92, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio Alto (B2)", percent: 80, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "Trados Studio", usage: "Memorias de traducción y alineación de segmentos de San Mateo" },
+          { name: "Subtitle Edit AI", usage: "Generación y temporización de subtítulos audiovisuales" },
+          { name: "Photoshop & Pack Office", usage: "Maquetación y tratamiento gráfico de entregables" },
+          { name: "DeepL Pro", usage: "Apoyo en control terminológico bilingüe" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 1)" },
+          metric2: { label: "Palabras Asignadas", val: "5,000+ palabras" },
+          metric3: { label: "Universidad", val: "UNIFÉ" },
+          metric4: { label: "Especialidad", val: "Audiovisual / Intérprete" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:00 - 14:00 (Traducción San Mateo & CAT Tools)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "olivaresramonfernanda@gmail.com",
+        phone: "+51960579156",
+        npsRating: 4.96
+      },
+      {
+        id: "celine-bautista",
+        name: "Celine Lorena Bautista Ramos",
+        role: "Practicante de Traducción e Interpretación (EN / PT / ES)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+        semester: "2022 - Actual | Próxima a 10mo Ciclo",
+        avatar: "assets/avatars/avatar_p2.png",
+        cvUrl: "cvs/CV_Celine_Lorena_Bautista.pdf",
+        bio: "Estudiante de Traducción e Interpretación en UNIFÉ próxima al décimo ciclo. Experiencia en Revista Comunifé y Teleperformance en evaluación lingüística contextual, maquetación editorial y entrega de documentos traducidos del español al inglés y portugués.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada a la Fase 4 de maquetación editorial y traducción especializada.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Intermedio (B2)", percent: 78, flag: "🇬🇧" },
+          { name: "Portugués", level: "Intermedio (B2)", percent: 78, flag: "🇧🇷" }
+        ],
+        aiStack: [
+          { name: "Subtitle Edit", usage: "Sincronización de testimonios orales y timecoding" },
+          { name: "Maquetación Editorial", usage: "Diseño y formateo de textos especializados para entrega" },
+          { name: "Pack Office & Drive", usage: "Gestión documental de carpetas compartidas" },
+          { name: "ChatGPT-4o", usage: "Análisis contextual en entornos multiculturales" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 4)" },
+          metric2: { label: "Documentos Maquetados", val: "18+ Documentos" },
+          metric3: { label: "Universidad", val: "UNIFÉ" },
+          metric4: { label: "Especialidad", val: "Maquetación & Edición" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "10:00 - 15:00 (Maquetación y Traducción Especializada)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "bautistalinna234@gmail.com",
+        phone: "+51924193856",
+        npsRating: 4.94
+      },
+      {
+        id: "sophia-cabrera",
+        name: "Sophia Camila Cabrera Zarate",
+        role: "Practicante de Traducción e Interpretación (EN / FR / ES)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+        semester: "2022 - Actual | Último Ciclo",
+        avatar: "assets/avatars/avatar_p3.png",
+        cvUrl: "cvs/CV_Sophia_Camila_Cabrera.pdf",
+        bio: "Estudiante de último ciclo de Traducción e Interpretación en UNIFÉ. Apasionada por su carrera, con destacada experiencia en traducción académica, edición bilingüe de revistas indexadas (Comunifé) y uso riguroso de SDL Trados y Subtitle Edit.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada a la Fase 3 de traducción académica, glosarios y rigor de citas.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Avanzado C1 (Británico)", percent: 92, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio (B2)", percent: 78, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "SDL Trados Studio", usage: "Extracción terminológica y memorias científicas" },
+          { name: "Subtitle Edit", usage: "Subtitulaje de cápsulas de investigación" },
+          { name: "Claude 3.5 Sonnet", usage: "Revisión estilística de papers indexados" },
+          { name: "Google Workspace", usage: "Colaboración en tiempo real para publicaciones" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 3)" },
+          metric2: { label: "Artículos Indexados", val: "2 Papers Comunifé" },
+          metric3: { label: "Universidad", val: "UNIFÉ" },
+          metric4: { label: "Especialidad", val: "Traducción Académica" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:00 - 13:30 (Traducción Académica y Revisión)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "sofiacamilacabrera@gmail.com",
+        phone: "+51987985138",
+        npsRating: 4.97
+      },
+      {
+        id: "landys-gonzales",
+        name: "Landys Brunella Gonzales Torres",
+        role: "Practicante de Traducción e Interpretación (EN / FR / ES)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+        semester: "2022 - Actual | 9no - 10mo Ciclo",
+        avatar: "assets/avatars/avatar_p4.png",
+        cvUrl: "cvs/CV_Landys_Brunella_Gonzales.pdf",
+        bio: "Estudiante de Traducción e Interpretación en la UNIFÉ. Experiencia destacada como intérprete consecutiva en ferias internacionales (Expo Plast / Pack Perú Expo 2026), traducción en joyería de lujo (MIKING LLC inglés-francés) e interpretación de enlace en colegios bilingües.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada a la Fase 2 de mediación intercultural y referencias culturales.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Intermedio Avanzado (B2)", percent: 80, flag: "🇬🇧" },
+          { name: "Francés", level: "Intermedio (B1/B2)", percent: 74, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Subtitle Edit", usage: "Subtitulado de conferencias y ferias" },
+          { name: "Canva Pro", usage: "Material didáctico y glosarios visuales" },
+          { name: "Whisper AI", usage: "Transcripción de audios para interpretación consecutiva" },
+          { name: "Office 365", usage: "Informes de interpretación y glosarios de ferias" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 2)" },
+          metric2: { label: "Ferias Internacionales", val: "Expo Plast / Pack" },
+          metric3: { label: "Universidad", val: "UNIFÉ" },
+          metric4: { label: "Especialidad", val: "Interpretación Consecutiva" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:30 - 14:00 (Traducción & Enlace)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "brunellagonzales24@gmail.com",
+        phone: "+51950205401",
+        npsRating: 4.95
+      },
+      {
+        id: "fatima-gallegos",
+        name: "Fatima Valentina Gallegos Tornero",
+        role: "Practicante de Traducción e Interpretación (EN / FR / ES)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+        semester: "2022 - Actual | 9no Ciclo",
+        avatar: "assets/avatars/avatar_p5.png",
+        cvUrl: "cvs/CV_Fatima_Valentina_Gallegos.pdf",
+        bio: "Estudiante del noveno ciclo en UNIFÉ con acreditación C2 en Inglés (Dominio Eficaz) y C1 en Francés (Avanzado). Experiencia en interpretación de enlace en Newton College Early Years y docencia bilingüe con alto rigor y precisión terminológica.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada a la Fase 5 de control de calidad terminológico y validación de enlace.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Dominio Eficaz (C2)", percent: 98, flag: "🇬🇧" },
+          { name: "Francés", level: "Avanzado (C1)", percent: 90, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Trados Studio", usage: "Control terminológico estricto y gestión de memorias" },
+          { name: "Subtitle Edit", usage: "Subtitulaje de precisión en EN/FR" },
+          { name: "ChatGPT-4o", usage: "Modelado de diálogos para interpretación de enlace" },
+          { name: "Google Drive & Outlook", usage: "Coordinación y entregables del proyecto" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 5)" },
+          metric2: { label: "Nivel de Dominio", val: "EN C2 • FR C1" },
+          metric3: { label: "Universidad", val: "UNIFÉ" },
+          metric4: { label: "Especialidad", val: "Interpretación de Enlace" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "08:30 - 13:30 (Traducción de Enlace & Glosarios)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "fatimavgt2@gmail.com",
+        phone: "+51992826616",
+        npsRating: 4.98
+      },
+      {
+        id: "arihana-altamirano",
+        name: "Arihana Jelena Altamirano Guevara",
+        role: "Practicante de Traducción e Interpretación (EN / FR / ES)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+        semester: "2022 - Actual | La Molina, Lima",
+        avatar: "assets/avatars/avatar_p6.png",
+        cvUrl: "cvs/CV_Arihana_Jelena_Altamirano.pdf",
+        bio: "Estudiante de Traducción e Interpretación en la UNIFÉ, apasionada por la traducción audiovisual, doblaje, subtitulaje y mediación intercultural. Experiencia como intérprete de enlace para University of Mary y asistente de producción corporativa en Alucina ITL.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada a la Fase 6 de subtitulación audiovisual y doblaje.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Intermedio Avanzado (B2)", percent: 80, flag: "🇬🇧" },
+          { name: "Francés", level: "Básico Inicial (A2)", percent: 55, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Subtitle Edit", usage: "Alineación de subtítulos y sincronización de código de tiempo" },
+          { name: "Canva Pro", usage: "Diseño de presentaciones y cartelería bilingüe" },
+          { name: "ElevenLabs AI", usage: "Guías de pronunciación y doblaje experimental" },
+          { name: "WhatsApp Business", usage: "Atención intercultural y logística en eventos" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 6)" },
+          metric2: { label: "Eventos Internacionales", val: "Univ of Mary & Newton" },
+          metric3: { label: "Universidad", val: "UNIFÉ" },
+          metric4: { label: "Especialidad", val: "Audiovisual & Doblaje" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "10:00 - 15:00 (Subtitulación Audiovisual)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "aria030910@gmail.com",
+        phone: "+51942639809",
+        npsRating: 4.93
+      },
+      {
+        id: "gaylim-gonzales",
+        name: "Gaylim Gonzales Ayala",
+        role: "Practicante de Traducción e Interpretación Profesional (ES / EN)",
+        department: "traductores",
+        departmentName: "Traductores & Practicantes",
+        isPracticante: true,
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        university: "Universidad Peruana de Ciencias Aplicadas (UPC)",
+        semester: "2021 - 2026 | Traducción e Interpretación Profesional",
+        avatar: "assets/avatars/avatar_p7.png",
+        cvUrl: "cvs/CV_Gaylim_Gonzales.pdf",
+        bio: "Estudiante de Traducción e Interpretación Profesional en la UPC (2021-2026). Amplia experiencia como intérprete médica y de emergencias (OPI/VRI) en Interpretia bajo normativa HIPAA y compliance internacional. Dominio avanzado de memoQ, Trados, Phrase, Matecat y transcripción de grupos focales en Enacción.",
+        personasACargoCount: 0,
+        personasACargoDesc: "Practicante asignada al control de calidad en memoQ, Trados y glosarios terminológicos.",
+        personasACargoList: [],
+        languages: [
+          { name: "Español", level: "Lengua materna / Nativo (C2)", percent: 100, flag: "🇵🇪" },
+          { name: "Inglés", level: "Avanzado Fluido (C1/C2)", percent: 94, flag: "🇬🇧" }
+        ],
+        aiStack: [
+          { name: "memoQ", usage: "Gestión avanzada de memorias y control de calidad terminológico" },
+          { name: "SDL Trados Studio", usage: "Procesamiento de corpus bilingüe y memorias compartidas" },
+          { name: "Phrase & Matecat", usage: "Localización en la nube y post-edición de textos" },
+          { name: "Google Workspace & Office", usage: "Gestión colaborativa y transcripción rigurosa" }
+        ],
+        metrics: {
+          metric1: { label: "Proyecto Asignado", val: "San Mateo (Fase 4 - QA)" },
+          metric2: { label: "CAT Tools Dominadas", val: "memoQ, Trados, Phrase" },
+          metric3: { label: "Universidad", val: "UPC" },
+          metric4: { label: "Especialidad", val: "Intérprete OPI/VRI & CAT" }
+        },
+        schedule: [
+          { day: "Lunes a Viernes", slots: "09:00 - 14:00 (memoQ QA & Interpretación Remota)" },
+          { day: "Miércoles", slots: "09:30 - 11:00 (Job Coaching Grupal con Melanie Almeyda)" }
+        ],
+        email: "ggaylim@gmail.com",
+        phone: "+51989377907",
+        npsRating: 4.98
+      },
+
+      // -----------------------------------------------------------
+      // DOCENTES DE IDIOMAS & SENIOR EXPERTS
+      // -----------------------------------------------------------
       {
         id: "jhonatan-vega",
         name: "Prof. Jhonatan Vega",
@@ -1189,7 +1777,7 @@
         country: "Perú",
         countryFlag: "🇵🇪",
         avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-        bio: "Pedagogo y lingüista políglota con más de 8 años de experiencia en enseñanza virtual acelerada. Creador de la metodología 'Shadowing con IA' para que los estudiantes pierdan el miedo a hablar desde la primera clase.",
+        bio: "Pedagogo y lingüista políglota con más de 8 años de experiencia en enseñanza virtual acelerada. Creador de la metodología 'Shadowing con IA' para que los estudiantes pierdan el miedo a hablar desde la primera clase. Dirige también la formación lingüística en vivo de Inglés y Portugués para el equipo de practicantes.",
         personasACargoCount: 35,
         personasACargoDesc: "A cargo de 33 alumnos de inglés y portugués en vivo + 2 asistentes de cátedra.",
         personasACargoList: [
@@ -1269,207 +1857,6 @@
         npsRating: 4.98
       },
       {
-        id: "scarlet-rodriguez",
-        name: "Scarlet Rodríguez",
-        role: "Video Producer, Copywriter & Identidad Visual",
-        department: "comunicaciones",
-        departmentName: "Comunicaciones",
-        country: "España",
-        countryFlag: "🇪🇸",
-        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-        bio: "Diseñadora audiovisual y copywriter persuasiva. Encargada de plasmar la identidad oficial de Polyglot Map (Cyber-Futurista Educativo & Glow) y realizar la edición profesional de los 4 videos cortos semanales.",
-        personasACargoCount: 2,
-        personasACargoDesc: "Supervisa a 2 practicantes en montaje y efectos sonoros.",
-        personasACargoList: [
-          { name: "Editor Audiovisual Jr.", role: "Cortes de retención y subtítulos 9:16", flag: "🇪🇸", tag: "Edición" },
-          { name: "Asistente de Hooks & Guiones", role: "Investigación de audios virales", flag: "🇪🇸", tag: "Copywriting" }
-        ],
-        languages: [
-          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
-          { name: "Inglés", level: "Avanzado (C1)", percent: 90, flag: "🇬🇧" },
-          { name: "Francés", level: "Intermedio (B1)", percent: 65, flag: "🇫🇷" }
-        ],
-        aiStack: [
-          { name: "Premiere Pro AI Speech", usage: "Ecualización sonora y waveforms bioluminiscentes" },
-          { name: "CapCut Pro AI", usage: "Animaciones de títulos 9:16 para TikTok y Reels" },
-          { name: "Claude 3.5", usage: "Redacción de ganchos persuasivos y CTAs con urgencia" },
-          { name: "Midjourney v6", usage: "Assets visuales de lentes AR y esferas holográficas" }
-        ],
-        metrics: {
-          metric1: { label: "Personas a Cargo", val: "2 Asistentes" },
-          metric2: { label: "Videos Editados / Mes", val: "16 Videos 9:16" },
-          metric3: { label: "Aprobación al 1er Corte", val: "94%" },
-          metric4: { label: "Retención Promedio", val: "68% en 3s" }
-        },
-        schedule: [
-          { day: "Lunes a Viernes", slots: "09:00 - 15:00 (Hora España / Remoto activo)" },
-          { day: "Jueves", slots: "16:00 (Sincronización de entrega con Adriana Chávez)" }
-        ],
-        email: "scarlet@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.93
-      },
-      {
-        id: "daniela-navarro",
-        name: "Daniela Navarro",
-        role: "Content Creator & Content Analytic en Ventas",
-        department: "comunicaciones",
-        departmentName: "Comunicaciones",
-        country: "Costa Rica",
-        countryFlag: "🇨🇷",
-        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
-        bio: "Creadora de contenido frente a cámara y analista de métricas de ventas. Graba los 4 videos semanales siguiendo las pautas de Adriana y analiza el embudo de conversión hacia WhatsApp.",
-        personasACargoCount: 1,
-        personasACargoDesc: "A cargo de un asistente de tracking de datos y etiquetado de leads.",
-        personasACargoList: [
-          { name: "Asistente de Métricas", role: "Etiquetado UTM y conversiones WhatsApp", flag: "🇨🇷", tag: "Analytics" }
-        ],
-        languages: [
-          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇨🇷" },
-          { name: "Inglés", level: "Avanzado (C1)", percent: 85, flag: "🇬🇧" },
-          { name: "Italiano", level: "Básico Inicial (A2)", percent: 50, flag: "🇮🇹" }
-        ],
-        aiStack: [
-          { name: "ChatGPT-4o", usage: "Teleprompter dinámico y preparación de ganchos verbales" },
-          { name: "Metricool AI", usage: "Análisis de mejores horas de publicación y viralidad" },
-          { name: "Opus Clip", usage: "Detección automática de momentos destacados en videollamadas" }
-        ],
-        metrics: {
-          metric1: { label: "Personas a Cargo", val: "1 Asistente" },
-          metric2: { label: "Videos Grabados / Mes", val: "16 Videos" },
-          metric3: { label: "Leads Calificados / Mes", val: "480+ Leads" },
-          metric4: { label: "Conversión a Chat", val: "18.4%" }
-        },
-        schedule: [
-          { day: "Lunes y Miércoles", slots: "14:00 - 18:00 (Jornada de grabación de videos cortos)" },
-          { day: "Martes y Jueves", slots: "10:00 - 13:00 (Reportes de analítica con Adriana y Alison)" }
-        ],
-        email: "daniela@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.91
-      },
-      {
-        id: "lucas-silva",
-        name: "Lucas Silva",
-        role: "Lead Translator & Prompt Engineer en Localización",
-        department: "traductores",
-        departmentName: "Traductores & Localización",
-        country: "Brasil",
-        countryFlag: "🇧🇷",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-        bio: "Traductor certificado y pionero en traducción asistida por IA (CAT tools + LLM post-editing). Lidera proyectos de localización internacional de software, materiales pedagógicos y plataformas web.",
-        personasACargoCount: 3,
-        personasACargoDesc: "Lidera a 3 traductores junior y lingüistas de control de calidad.",
-        personasACargoList: [
-          { name: "Traductor Jr. PT-EN", role: "Traducción de módulos educativos", flag: "🇧🇷", tag: "Localización" },
-          { name: "Revisora de Glosarios", role: "Consistencia terminológica corporativa", flag: "🇧🇷", tag: "QA Lingüístico" },
-          { name: "Especialista en QA Digital", role: "Validación de interfaces en navegadores", flag: "🇵🇪", tag: "Software QA" }
-        ],
-        languages: [
-          { name: "Portugués", level: "Nativo (C2)", percent: 100, flag: "🇧🇷" },
-          { name: "Español", level: "Bilingüe (C2)", percent: 95, flag: "🇪🇸" },
-          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 92, flag: "🇬🇧" },
-          { name: "Francés", level: "Intermedio (B1)", percent: 65, flag: "🇫🇷" }
-        ],
-        aiStack: [
-          { name: "DeepL Pro API", usage: "Pre-traducción neuronal de alto rendimiento" },
-          { name: "Claude 3.5 Sonnet", usage: "Adaptación cultural, tono de marca y post-edición" },
-          { name: "Smartling AI", usage: "Gestión de memoria de traducción y glosarios dinámicos" },
-          { name: "Whisper AI", usage: "Transcripción multilingüe automatizada" }
-        ],
-        metrics: {
-          metric1: { label: "Personas a Cargo", val: "3 Traductores" },
-          metric2: { label: "Palabras Procesadas", val: "450k+ palabras" },
-          metric3: { label: "Reducción de Tiempo IA", val: "-65% tiempo" },
-          metric4: { label: "Precisión Terminológica", val: "99.4%" }
-        },
-        schedule: [
-          { day: "Lunes a Viernes", slots: "08:30 - 17:30 (Jornada de localización & QA)" },
-          { day: "Martes y Jueves", slots: "11:00 - 12:30 (Revisión de glosarios con equipo)" }
-        ],
-        email: "lucas.silva@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.96
-      },
-      {
-        id: "diego-morales",
-        name: "Diego Morales",
-        role: "Lead Mentor de IA para Empleabilidad & Prompts",
-        department: "empleabilidad",
-        departmentName: "Empleabilidad & Liderazgo IA",
-        country: "México",
-        countryFlag: "🇲🇽",
-        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
-        bio: "Ingeniero de prompts y consultor de automatización para profesionales internacionales. Entrena a los talentos de Polyglot Map en cómo multiplicar su productividad utilizando herramientas de IA generativa.",
-        personasACargoCount: 28,
-        personasACargoDesc: "28 profesionales bilingües en cohortes de automatización de carrera.",
-        personasACargoList: [
-          { name: "Cohorte Alfa: IA para Profesionales", role: "15 Participantes en Mentoría", flag: "🤖", tag: "Productividad" },
-          { name: "Cohorte Beta: Automatización Remota", role: "13 Profesionales en Transición", flag: "💼", tag: "Empleabilidad" }
-        ],
-        languages: [
-          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇲🇽" },
-          { name: "Inglés", level: "Fluido Profesional (C1)", percent: 92, flag: "🇬🇧" },
-          { name: "Alemán", level: "Intermedio (B1)", percent: 60, flag: "🇩🇪" }
-        ],
-        aiStack: [
-          { name: "OpenAI API / ChatGPT-4o", usage: "Arquitectura de prompts y agentes personalizados" },
-          { name: "Anthropic Claude 3.5", usage: "Generación y refactorización de flujos de trabajo" },
-          { name: "Make.com & Zapier", usage: "Automatización de postulaciones y alertas de empleo" },
-          { name: "Cursor / v0", usage: "Prototipado rápido de portfolios interactivos" }
-        ],
-        metrics: {
-          metric1: { label: "Personas a Cargo", val: "28 Alumnos" },
-          metric2: { label: "Automatizaciones Creadas", val: "180+ Flujos" },
-          metric3: { label: "Incremento Salarial Alumnos", val: "+40% Promedio" },
-          metric4: { label: "Rating de Mentoría", val: "4.96 / 5.0" }
-        },
-        schedule: [
-          { day: "Martes", slots: "19:00 - 21:00 (Masterclass de Prompts Avanzados)" },
-          { day: "Jueves", slots: "19:00 - 21:00 (Taller Práctico de Automatización con Make)" },
-          { day: "Sábado", slots: "10:00 - 12:30 (Revisión de Casos de Éxito y Portfolios)" }
-        ],
-        email: "diego.morales@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.96
-      },
-      {
-        id: "alison-paucar",
-        name: "Alison Páucar",
-        role: "Content Strategist & Alianzas B2B en IA",
-        department: "comunicaciones",
-        departmentName: "Comunicaciones",
-        country: "Perú",
-        countryFlag: "🇵🇪",
-        avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
-        bio: "Investigadora de tendencias en IA y estratega de contenido comercial. Diseña 4 piezas gráficas semanales sobre ofertas laborales y prospecta acuerdos corporativos para contratación de egresados.",
-        personasACargoCount: 0,
-        personasACargoDesc: "Especialista individual de alta concentración estratégica.",
-        personasACargoList: [],
-        languages: [
-          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
-          { name: "Inglés", level: "Avanzado (C1)", percent: 89, flag: "🇬🇧" },
-          { name: "Portugués", level: "Intermedio Alto (B2)", percent: 75, flag: "🇧🇷" }
-        ],
-        aiStack: [
-          { name: "Perplexity AI", usage: "Investigación de vacantes remotas y tendencias salariales" },
-          { name: "Claude 3.5 Sonnet", usage: "Redacción de propuestas comerciales B2B" },
-          { name: "Canva Pro", usage: "Diseño de 4 piezas gráficas semanales para WhatsApp y feed" }
-        ],
-        metrics: {
-          metric1: { label: "Piezas Semanales", val: "4 Piezas" },
-          metric2: { label: "Propuestas B2B", val: "12 Enviadas" },
-          metric3: { label: "Engagement B2B", val: "+38% Interacción" },
-          metric4: { label: "Satisfacción Equipo", val: "4.92 / 5.0" }
-        },
-        schedule: [
-          { day: "Lunes a Viernes", slots: "09:30 - 16:30 (Investigación & Contenidos)" }
-        ],
-        email: "alison@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.92
-      },
-      {
         id: "matteo-rossi",
         name: "Matteo Rossi",
         role: "Docente de Italiano & Fonética Melódica",
@@ -1509,81 +1896,6 @@
         email: "matteo.rossi@polyglotmap.com",
         phone: "+51908934514",
         npsRating: 4.96
-      },
-      {
-        id: "sofia-valenzuela",
-        name: "Sofía Valenzuela",
-        role: "Traductora Jurídica & Subtitulaje con IA",
-        department: "traductores",
-        departmentName: "Traductores & Localización",
-        country: "Perú",
-        countryFlag: "🇵🇪",
-        avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80",
-        bio: "Traductora colegiada con especialidad en contratos comerciales internacionales y subtitulaje sincronizado para material audiovisual corporativo con modelos Whisper.",
-        personasACargoCount: 2,
-        personasACargoDesc: "A cargo de 2 asistentes en sincronización de subtítulos y terminología.",
-        personasACargoList: [
-          { name: "Asistente de Sincronización .SRT", role: "Alineación de tiempos de subtítulos", flag: "🇵🇪", tag: "Subtitulaje" },
-          { name: "Revisor Jurídico Jr.", role: "Validación de cláusulas legales EN/ES", flag: "🇵🇪", tag: "Legal QA" }
-        ],
-        languages: [
-          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
-          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 96, flag: "🇬🇧" },
-          { name: "Francés", level: "Avanzado (C1)", percent: 85, flag: "🇫🇷" }
-        ],
-        aiStack: [
-          { name: "Whisper Large-v3", usage: "Transcripción de audios con detección de silencios" },
-          { name: "Subtitle Edit AI", usage: "Segmentación automática de caracteres por segundo" },
-          { name: "DeepL Pro", usage: "Traducción jurídica con glosario corporativo blindado" }
-        ],
-        metrics: {
-          metric1: { label: "Personas a Cargo", val: "2 Asistentes" },
-          metric2: { label: "Minutos Subtitulados", val: "3,200+ min" },
-          metric3: { label: "Contratos Traducidos", val: "140+ docs" },
-          metric4: { label: "Error Rate", val: "< 0.1%" }
-        },
-        schedule: [
-          { day: "Lunes a Jueves", slots: "09:00 - 14:00 (Traducción Jurídica & Subtitulaje)" }
-        ],
-        email: "sofia.valenzuela@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.94
-      },
-      {
-        id: "britani-quispe",
-        name: "Britani Quispe",
-        role: "Community Engagement & WhatsApp Lead",
-        department: "comunicaciones",
-        departmentName: "Comunicaciones",
-        country: "Perú",
-        countryFlag: "🇵🇪",
-        avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
-        bio: "Dinamizadora de la comunidad oficial de WhatsApp de Polyglot Map. Conecta día a día con postulantes de becas, comparte retos diarios de vocabulario y atiende consultas con calidez humana.",
-        personasACargoCount: 0,
-        personasACargoDesc: "Especialista clave en fidelización y soporte comunitario.",
-        personasACargoList: [],
-        languages: [
-          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
-          { name: "Inglés", level: "Intermedio Alto (B2)", percent: 76, flag: "🇬🇧" },
-          { name: "Portugués", level: "Intermedio (B1)", percent: 62, flag: "🇧🇷" }
-        ],
-        aiStack: [
-          { name: "ManyChat", usage: "Automatización de respuestas frecuentes y bienvenida" },
-          { name: "ChatGPT-4o", usage: "Redacción de retos interactivos y trivia lingüística" },
-          { name: "Canva Magic", usage: "Stickers y avisos visuales para grupos de WhatsApp" }
-        ],
-        metrics: {
-          metric1: { label: "Mensajes Atendidos", val: "2,800+ chats" },
-          metric2: { label: "Tiempo de Respuesta", val: "< 4 minutos" },
-          metric3: { label: "Participación en Retos", val: "84% Activa" },
-          metric4: { label: "Satisfacción Alumnos", val: "4.95 / 5.0" }
-        },
-        schedule: [
-          { day: "Lunes a Sábado", slots: "Turnos rotativos de atención y dinamización en WhatsApp" }
-        ],
-        email: "britani@polyglotmap.com",
-        phone: "+51908934514",
-        npsRating: 4.95
       },
       {
         id: "elena-bauer",
@@ -1626,6 +1938,45 @@
         npsRating: 4.94
       },
       {
+        id: "sofia-valenzuela",
+        name: "Sofía Valenzuela",
+        role: "Traductora Jurídica & Subtitulaje con IA",
+        department: "traductores",
+        departmentName: "Traductores & Localización",
+        country: "Perú",
+        countryFlag: "🇵🇪",
+        avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80",
+        bio: "Traductora colegiada con especialidad en contratos comerciales internacionales y subtitulaje sincronizado para material audiovisual corporativo con modelos Whisper.",
+        personasACargoCount: 2,
+        personasACargoDesc: "A cargo de 2 asistentes en sincronización de subtítulos y terminología.",
+        personasACargoList: [
+          { name: "Asistente de Sincronización .SRT", role: "Alineación de tiempos de subtítulos", flag: "🇵🇪", tag: "Subtitulaje" },
+          { name: "Revisor Jurídico Jr.", role: "Validación de cláusulas legales EN/ES", flag: "🇵🇪", tag: "Legal QA" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇪🇸" },
+          { name: "Inglés", level: "Fluido Profesional (C2)", percent: 96, flag: "🇬🇧" },
+          { name: "Francés", level: "Avanzado (C1)", percent: 85, flag: "🇫🇷" }
+        ],
+        aiStack: [
+          { name: "Whisper Large-v3", usage: "Transcripción de audios con detección de silencios" },
+          { name: "Subtitle Edit AI", usage: "Segmentación automática de caracteres por segundo" },
+          { name: "DeepL Pro", usage: "Traducción jurídica con glosario corporativo blindado" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "2 Asistentes" },
+          metric2: { label: "Minutos Subtitulados", val: "3,200+ min" },
+          metric3: { label: "Contratos Traducidos", val: "140+ docs" },
+          metric4: { label: "Error Rate", val: "< 0.1%" }
+        },
+        schedule: [
+          { day: "Lunes a Jueves", slots: "09:00 - 14:00 (Traducción Jurídica & Subtitulaje)" }
+        ],
+        email: "sofia.valenzuela@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.94
+      },
+      {
         id: "marco-bellini",
         name: "Marco Bellini",
         role: "Traductor Técnico & Especialista en Post-Edición IA",
@@ -1636,7 +1987,7 @@
         avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
         bio: "Ingeniero de localización y traductor especializado en manuales técnicos, ingeniería y software multilingüe. Integra flujos de post-edición neuronal con control estricto de calidad ISO 17100.",
         personasACargoCount: 0,
-        personasACargoDesc: "Especialista técnico senior en control de calidad algorítmica.",
+        personasACargoDesc: "Especialista técnico senior en control de calidad algorítmica y QA ISO.",
         personasACargoList: [],
         languages: [
           { name: "Italiano", level: "Nativo (C2)", percent: 100, flag: "🇮🇹" },
@@ -1660,6 +2011,48 @@
         email: "marco.bellini@polyglotmap.com",
         phone: "+51908934514",
         npsRating: 4.95
+      },
+      {
+        id: "diego-morales",
+        name: "Diego Morales",
+        role: "Lead Mentor de IA para Empleabilidad & Prompts",
+        department: "empleabilidad",
+        departmentName: "Empleabilidad & Liderazgo IA",
+        country: "México",
+        countryFlag: "🇲🇽",
+        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+        bio: "Ingeniero de prompts y consultor de automatización para profesionales internacionales. Entrena a los talentos de Polyglot Map en cómo multiplicar su productividad utilizando herramientas de IA generativa.",
+        personasACargoCount: 28,
+        personasACargoDesc: "28 profesionales bilingües en cohortes de automatización de carrera.",
+        personasACargoList: [
+          { name: "Cohorte Alfa: IA para Profesionales", role: "15 Participantes en Mentoría", flag: "🤖", tag: "Productividad" },
+          { name: "Cohorte Beta: Automatización Remota", role: "13 Profesionales en Transición", flag: "💼", tag: "Empleabilidad" }
+        ],
+        languages: [
+          { name: "Español", level: "Nativo (C2)", percent: 100, flag: "🇲🇽" },
+          { name: "Inglés", level: "Fluido Profesional (C1)", percent: 92, flag: "🇬🇧" },
+          { name: "Alemán", level: "Intermedio (B1)", percent: 60, flag: "🇩🇪" }
+        ],
+        aiStack: [
+          { name: "OpenAI API / ChatGPT-4o", usage: "Arquitectura de prompts y agentes personalizados" },
+          { name: "Anthropic Claude 3.5", usage: "Generación y refactorización de flujos de trabajo" },
+          { name: "Make.com & Zapier", usage: "Automatización de postulaciones y alertas de empleo" },
+          { name: "Cursor / v0", usage: "Prototipado rápido de portfolios interactivos" }
+        ],
+        metrics: {
+          metric1: { label: "Personas a Cargo", val: "28 Alumnos" },
+          metric2: { label: "Automatizaciones Creadas", val: "180+ Flujos" },
+          metric3: { label: "Incremento Salarial", val: "+40% Promedio" },
+          metric4: { label: "Rating de Mentoría", val: "4.96 / 5.0" }
+        },
+        schedule: [
+          { day: "Martes", slots: "19:00 - 21:00 (Masterclass de Prompts Avanzados)" },
+          { day: "Jueves", slots: "19:00 - 21:00 (Taller Práctico de Automatización con Make)" },
+          { day: "Sábado", slots: "10:00 - 12:30 (Revisión de Casos de Éxito y Portfolios)" }
+        ],
+        email: "diego.morales@polyglotmap.com",
+        phone: "+51908934514",
+        npsRating: 4.96
       }
     ];
 
@@ -1750,23 +2143,20 @@
           datasets: [{
             label: 'Personas a Cargo',
             data: leadersData.map(s => s.personasACargoCount),
-            backgroundColor: [
-              'rgba(167, 243, 208, 0.9)', // Jhonatan (mint pastel)
-              'rgba(196, 181, 253, 0.9)', // Diego (purple pastel)
-              'rgba(167, 243, 208, 0.85)', // Camila (mint pastel)
-              'rgba(167, 243, 208, 0.8)', // Matteo (mint pastel)
-              'rgba(167, 243, 208, 0.75)', // Elena (mint pastel)
-              'rgba(244, 114, 182, 0.9)', // Melanie (pink pastel)
-              'rgba(254, 215, 170, 0.9)', // Adriana (peach pastel)
-              'rgba(186, 230, 253, 0.9)', // Lucas (sky pastel)
-              'rgba(254, 215, 170, 0.8)', // Scarlet
-              'rgba(186, 230, 253, 0.8)', // Sofia
-              'rgba(254, 215, 170, 0.75)' // Daniela
-            ],
-            borderColor: [
-              '#10B981', '#8B5CF6', '#10B981', '#10B981', '#10B981',
-              '#EC4899', '#F97316', '#0284C7', '#F97316', '#0284C7', '#F97316'
-            ],
+            backgroundColor: leadersData.map(s => {
+              if (s.department === 'docentes') return 'rgba(167, 243, 208, 0.9)'; // Mint pastel
+              if (s.department === 'empleabilidad') return 'rgba(196, 181, 253, 0.9)'; // Purple pastel
+              if (s.department === 'comunicaciones') return 'rgba(251, 207, 232, 0.9)'; // Pink pastel
+              if (s.department === 'traductores') return 'rgba(186, 230, 253, 0.9)'; // Sky pastel
+              return 'rgba(254, 215, 170, 0.9)';
+            }),
+            borderColor: leadersData.map(s => {
+              if (s.department === 'docentes') return '#10B981';
+              if (s.department === 'empleabilidad') return '#8B5CF6';
+              if (s.department === 'comunicaciones') return '#EC4899';
+              if (s.department === 'traductores') return '#0284C7';
+              return '#F97316';
+            }),
             borderWidth: 1.5,
             borderRadius: 8
           }]
@@ -1816,14 +2206,14 @@
       chartDepartamentosInstance = new Chart(ctx2, {
         type: 'doughnut',
         data: {
-          labels: ['Docentes (5)', 'Comunicaciones (5)', 'Traductores (3)', 'Empleabilidad e IA (2)'],
+          labels: ['Traductores & Practicantes (10)', 'Comunicaciones & Creators (5)', 'Docentes en Vivo (4)', 'Empleabilidad e IA (2)'],
           datasets: [{
-            data: [5, 5, 3, 2],
+            data: [10, 5, 4, 2],
             backgroundColor: [
-              '#6EE7B7', // Mint pastel
-              '#F472B6', // Pink pastel
-              '#7DD3FC', // Sky pastel
-              '#C084FC'  // Purple pastel
+              '#7DD3FC', // Sky pastel (Traductores & Practicantes)
+              '#F472B6', // Pink pastel (Comunicaciones)
+              '#6EE7B7', // Mint pastel (Docentes)
+              '#C084FC'  // Purple pastel (Empleabilidad & IA)
             ],
             borderWidth: 3,
             borderColor: '#FFFFFF',
@@ -1932,9 +2322,11 @@
           const matchRole = staff.role.toLowerCase().includes(q);
           const matchDept = staff.departmentName.toLowerCase().includes(q);
           const matchBio = staff.bio.toLowerCase().includes(q);
+          const matchUniv = staff.university && staff.university.toLowerCase().includes(q);
+          const matchPracticante = (q.includes('practicante') || q.includes('intern')) && staff.isPracticante;
           const matchLang = staff.languages.some(l => l.name.toLowerCase().includes(q));
           const matchAI = staff.aiStack.some(t => t.name.toLowerCase().includes(q) || t.usage.toLowerCase().includes(q));
-          if (!matchName && !matchRole && !matchDept && !matchBio && !matchLang && !matchAI) {
+          if (!matchName && !matchRole && !matchDept && !matchBio && !matchUniv && !matchPracticante && !matchLang && !matchAI) {
             return false;
           }
         }
@@ -1982,10 +2374,17 @@
             <!-- Top Department Tag & Country -->
             <div>
               <div class="flex items-center justify-between gap-2 mb-4">
-                <span class="px-3 py-1 rounded-full text-[11px] font-bold border ${style.badgeBg} flex items-center gap-1.5">
-                  <i data-lucide="${style.icon}" class="w-3.5 h-3.5"></i>
-                  <span>${staff.departmentName}</span>
-                </span>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-3 py-1 rounded-full text-[11px] font-bold border ${style.badgeBg} flex items-center gap-1.5">
+                    <i data-lucide="${style.icon}" class="w-3.5 h-3.5"></i>
+                    <span>${staff.departmentName}</span>
+                  </span>
+                  ${staff.isPracticante ? `
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-200">
+                      👩‍🎓 Practicante ${staff.university && staff.university.includes('UNIFÉ') ? 'UNIFÉ' : (staff.university && staff.university.includes('UPC') ? 'UPC' : '')}
+                    </span>
+                  ` : ''}
+                </div>
                 <span class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700">
                   <span class="text-sm">${staff.countryFlag}</span>
                   <span>${staff.country}</span>
@@ -2022,6 +2421,32 @@
                       </div>
                     </div>
                     <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900">Líder</span>
+                  </div>
+                ` : staff.isPracticante ? `
+                  <div class="p-2.5 rounded-xl bg-indigo-50/90 border border-indigo-200/70 text-indigo-950 text-xs font-medium flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-lg bg-indigo-200 text-indigo-800 flex items-center justify-center font-bold text-xs">
+                        🎓
+                      </div>
+                      <div>
+                        <span class="font-extrabold text-indigo-950">${staff.metrics.metric1.val}</span>
+                        <div class="text-[10px] text-indigo-800/80 truncate max-w-[170px] sm:max-w-[200px]">${staff.university ? staff.university.split('(')[0] : 'UNIFÉ'} · ${staff.metrics.metric4.val}</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-200 text-indigo-900">San Mateo</span>
+                  </div>
+                ` : staff.department === 'comunicaciones' ? `
+                  <div class="p-2.5 rounded-xl bg-pink-50/90 border border-pink-200/70 text-pink-950 text-xs font-medium flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-lg bg-pink-200 text-pink-800 flex items-center justify-center font-bold text-xs">
+                        🎨
+                      </div>
+                      <div>
+                        <span class="font-extrabold text-pink-950">${staff.metrics.metric1.val}</span>
+                        <div class="text-[10px] text-pink-800/80 truncate max-w-[170px] sm:max-w-[200px]">${staff.university || 'Content Creator'}</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-200 text-pink-900">Creators</span>
                   </div>
                 ` : `
                   <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/60 text-slate-600 text-xs font-medium flex items-center justify-between">
@@ -2104,10 +2529,15 @@
 
             <!-- Action Buttons: Go to Individual Dashboard -->
             <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-              <a href="#staff=${staff.id}" onclick="navigateToStaff('${staff.id}'); return false;" class="flex-1 py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-purple-200 group-hover:bg-purple-700">
-                <span>Ver Dashboard Completo</span>
+              <a href="#staff=${staff.id}" onclick="navigateToStaff('${staff.id}'); return false;" class="flex-1 py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs text-center transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-purple-200 group-hover:bg-purple-700">
+                <span>Ver Dashboard</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </a>
+              ${staff.cvUrl ? `
+                <a href="${staff.cvUrl}" target="_blank" class="p-2.5 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 transition-colors" title="Ver / Descargar CV Oficial (PDF)">
+                  <i data-lucide="file-text" class="w-4 h-4 text-purple-600"></i>
+                </a>
+              ` : ''}
               <a href="https://wa.me/${staff.phone.replace(/[^0-9]/g, '')}?text=%C2%A1Hola%20${encodeURIComponent(staff.name)}!%20Te%20contacto%20desde%20el%20Staff%20Dashboard%20de%20Polyglot%20Map" target="_blank" class="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors" title="Contactar por WhatsApp">
                 <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
               </a>
@@ -2136,6 +2566,11 @@
                 <span class="px-2 py-0.5 rounded-md text-xs font-semibold ${style.badgeBg}">
                   ${staff.departmentName}
                 </span>
+                ${staff.isPracticante ? `
+                  <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-indigo-100 text-indigo-900 border border-indigo-200">
+                    Practicante ${staff.university && staff.university.includes('UNIFÉ') ? 'UNIFÉ' : (staff.university && staff.university.includes('UPC') ? 'UPC' : '')}
+                  </span>
+                ` : ''}
                 ${staff.department === 'comunicaciones' ? `
                   <a href="https://team-content-creator.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-pink-100 text-pink-800 hover:bg-pink-200 transition-colors inline-flex items-center gap-0.5" title="Abrir Creative Marketing Studio en Vercel">
                     <span>Vercel</span>
@@ -2171,10 +2606,18 @@
               </div>
             </td>
             <td class="py-3 px-4 text-right">
-              <button onclick="navigateToStaff('${staff.id}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-all inline-flex items-center gap-1 shadow-2xs">
-                <span>Dashboard</span>
-                <i data-lucide="arrow-right" class="w-3 h-3"></i>
-              </button>
+              <div class="inline-flex items-center gap-1.5 justify-end">
+                ${staff.cvUrl ? `
+                  <a href="${staff.cvUrl}" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs transition-all inline-flex items-center gap-1 border border-purple-200" title="Ver / Descargar CV Oficial (PDF)">
+                    <i data-lucide="file-text" class="w-3 h-3 text-purple-600"></i>
+                    <span>CV</span>
+                  </a>
+                ` : ''}
+                <button onclick="navigateToStaff('${staff.id}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-all inline-flex items-center gap-1 shadow-2xs">
+                  <span>Dashboard</span>
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </button>
+              </div>
             </td>
           </tr>
         `;
@@ -2408,6 +2851,17 @@
                       <i data-lucide="${style.icon}" class="w-3.5 h-3.5"></i>
                       <span>${staff.departmentName}</span>
                     </span>
+                    ${staff.isPracticante ? `
+                      <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-200 flex items-center gap-1">
+                        <span>👩‍🎓 Practicante Oficial</span>
+                      </span>
+                    ` : ''}
+                    ${staff.university ? `
+                      <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200 text-xs font-bold flex items-center gap-1">
+                        <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-indigo-600"></i>
+                        <span>${staff.university}</span>
+                      </span>
+                    ` : ''}
                     <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
                       ${staff.country}
                     </span>
@@ -2431,6 +2885,12 @@
 
               <!-- Quick Contact CTA Buttons -->
               <div class="flex flex-wrap sm:flex-col gap-2.5 w-full md:w-auto shrink-0 pt-2 md:pt-0">
+                ${staff.cvUrl ? `
+                <a href="${staff.cvUrl}" target="_blank" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-purple-200">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                  <span>Descargar / Ver CV</span>
+                </a>
+                ` : ''}
                 <a href="https://wa.me/${staff.phone.replace(/[^0-9]/g, '')}?text=%C2%A1Hola%20${encodeURIComponent(staff.name)}!%20Te%20contacto%20desde%20tu%20dashboard%20de%20Polyglot%20Map" target="_blank" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-emerald-200">
                   <i data-lucide="message-circle" class="w-4 h-4"></i>
                   <span>WhatsApp Directo</span>
@@ -2503,6 +2963,60 @@
                     </div>
                   </div>
                 `).join('')}
+              </div>
+            ` : staff.isPracticante ? `
+              <div class="p-5 rounded-2xl bg-gradient-to-r from-purple-50 via-indigo-50 to-pink-50 border border-indigo-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl shrink-0">
+                      👩‍🎓
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-extrabold text-slate-900">Practicante Convocada · Proyecto "Preservando Historias – San Mateo"</h4>
+                      <p class="text-xs text-slate-600 mt-1">
+                        <strong>Universidad:</strong> ${staff.university || 'UNIFÉ'} · <strong>Ciclo:</strong> ${staff.semester || '2026'} · <strong>Entregable:</strong> ${staff.metrics.metric1.val} (${staff.metrics.metric2.val})
+                      </p>
+                      <p class="text-[11px] text-slate-500 mt-1">
+                        Formación activa en <strong>Job Coaching de Empleabilidad</strong> con la coach Melanie Almeyda (miércoles 9:30 AM) y clases de idiomas & herramientas CAT con el profesor Jhonatan.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap sm:flex-col gap-2 shrink-0">
+                    ${staff.cvUrl ? `
+                      <a href="${staff.cvUrl}" target="_blank" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs inline-flex items-center justify-center gap-1.5 shadow-2xs">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                        <span>Descargar CV Oficial</span>
+                      </a>
+                    ` : ''}
+                    <a href="https://studio-global-translators.vercel.app/" target="_blank" class="px-3.5 py-2 rounded-xl bg-white hover:bg-indigo-50 text-indigo-800 border border-indigo-200 font-bold text-xs inline-flex items-center justify-center gap-1.5">
+                      <span>Studio Translators Hub</span>
+                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ` : staff.department === 'comunicaciones' ? `
+              <div class="p-5 rounded-2xl bg-gradient-to-r from-pink-50 via-purple-50 to-pink-50 border border-pink-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center text-xl shrink-0">
+                      🎨
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-extrabold text-slate-900">Integrante Oficial · Equipo de Content Creators & Marketing</h4>
+                      <p class="text-xs text-slate-600 mt-1">
+                        <strong>Formación:</strong> ${staff.university || 'Content Creator'} · <strong>Meta Semanal:</strong> ${staff.metrics.metric1.val}
+                      </p>
+                      <p class="text-[11px] text-slate-500 mt-1">
+                        Coordinación diaria con Adriana Chávez en la Matriz Excel / Sheets y sala Meet permanente.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="https://team-content-creator.vercel.app/" target="_blank" class="px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs inline-flex items-center justify-center gap-1.5 shadow-2xs shrink-0">
+                    <span>Ver en Content Creator Hub</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </a>
+                </div>
               </div>
             ` : `
               <div class="text-center py-6 px-4 rounded-2xl bg-slate-50 border border-slate-200/60">

@@ -3,3 +3,4 @@ Thumbs.db
 *.log
 scratch/
 update_script.py
+update_staff_dashboard.py
